@@ -1,0 +1,21 @@
+.nws-layout-pin {
+  // 変数
+  --nws-layout-childSizeX: auto;
+  --nws-layout-childSizeY: auto;
+
+  // pin用のスタイル
+  display: block;
+  position: relative;
+
+  & > * {
+    position: absolute;
+  }
+
+  // 子要素のサイズ
+  &.nws-layout-childSizeX > * {
+    width: var(--nws-layout-childSizeX);
+  }
+  &.nws-layout-childSizeY > * {
+    height: var(--nws-layout-childSizeY);
+  }
+}
