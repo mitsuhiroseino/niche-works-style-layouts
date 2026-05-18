@@ -30,29 +30,39 @@ const { className, style } = stack({
   direction: 'x',
   alignX: 'center',
   alignY: 'middle',
-  spacing: '16px',
+  gap: 16,
 });
 
 // className: "nws-layout-stack nws-layout-direction-x ..."
-// style: { "--nws-layout-spacingX": "16px", ... }
+// style: { "--nws-layout-gapX": "16px", ... }
 ```
 
 ```html
-<div class="nws-layout-stack ..." style="--nws-layout-spacingX: 16px; ...">
+<div class="nws-layout-stack ..." style="--nws-layout-gapX: 16px; ...">
   <div>Item 1</div>
   <div>Item 2</div>
 </div>
 ```
 
-> **Note:** You need to import the CSS separately.
+### CSS
+
+The default import automatically includes the CSS.
 
 ```ts
+import { stack } from '@niche-works/style-layouts';
+```
+
+If you want to manage CSS and functions separately, use the modules under the `core` directory.
+
+```ts
+import { stack } from '@niche-works/style-layouts/core';
+
 // Import all layouts at once
-import '@niche-works/style-layouts/styles.css';
+import '@niche-works/style-layouts/core/styles.css';
 
 // Or import only what you need
-import '@niche-works/style-layouts/stack.css';
-import '@niche-works/style-layouts/tile.css';
+import '@niche-works/style-layouts/core/stack.css';
+import '@niche-works/style-layouts/core/tile.css';
 ```
 
 ## Layout Types
@@ -65,18 +75,20 @@ Arranges child elements in a single row or column.
 import { stack } from '@niche-works/style-layouts';
 
 const { className, style } = stack({
-  direction: 'x', // 'x' | 'y' — default: 'x'
-  alignX: 'left', // 'left' | 'center' | 'right'
-  alignY: 'top', // 'top' | 'middle' | 'bottom'
-  adjustX: 'grow', // 'none' | 'grow' | 'shrink' | 'fit'
-  childSizeX: '200px',
-  spacing: '8px',
+  direction: 'x',
+  alignX: 'left',
+  alignY: 'top',
+  adjustX: 'grow',
+  gap: 8,
+  childSizeX: 200,
 });
 ```
 
 ### `flow`
 
 Like `stack`, but wraps child elements when they exceed the container size.
+
+> `grow`, `shrink`, and `fit` cannot be specified for `adjustX` / `adjustY` on the cross axis.
 
 ```ts
 import { flow } from '@niche-works/style-layouts';
@@ -86,58 +98,54 @@ const { className, style } = flow({
   alignX: 'left',
   alignY: 'top',
   adjustX: 'fit',
-  childSizeX: '200px',
-  spacing: '8px',
+  gap: 8,
+  childSizeX: 200,
 });
 ```
-
-> `grow`, `shrink`, and `fit` cannot be specified for `adjust` on the cross axis.
-
-### `matrix`
-
-Arranges child elements in a grid with explicit column and row counts.
-
-```ts
-import { matrix } from '@niche-works/style-layouts';
-
-const { className, style } = matrix({
-  direction: 'x',
-  childCountX: 3, // required (or childX)
-  childCountY: 2, // required (or childY)
-  childSizeX: '200px',
-  adjustX: 'fit',
-  spacing: '8px',
-});
-```
-
-Either `childCountX` or `childX` is required per axis (not both).
-
-```ts
-// Using explicit track templates
-matrix({
-  childX: ['1fr', '2fr', '1fr'],
-  childCountY: 3,
-});
-```
-
-> **Note:** This layout assumes the container size is determined externally. Containers sized by their own content (e.g. `width: max-content`) may cause unexpected behavior with percentage-based values.
 
 ### `tile`
 
 Arranges child elements in a grid based on child element size. The number of columns is determined automatically based on the container and child sizes.
+
+> **Note:** This layout assumes the container size is determined externally. Containers sized by their own content (e.g. `width: max-content`) may cause unexpected behavior with percentage-based values.
 
 ```ts
 import { tile } from '@niche-works/style-layouts';
 
 const { className, style } = tile({
   direction: 'x',
-  childSizeX: '200px',
   adjustX: 'fit',
-  spacing: '8px',
+  gap: 8,
+  childSizeX: 200,
 });
 ```
 
-> **Note:** Like `matrix`, this layout assumes the container size is determined externally.
+### `matrix`
+
+Arranges child elements in a grid with explicit column and row counts.
+
+Either `childCount` or `tracks` is required per axis (not both).
+
+> **Note:** Like `tile`, this layout assumes the container size is determined externally.
+
+```ts
+import { matrix } from '@niche-works/style-layouts';
+
+const { className, style } = matrix({
+  direction: 'x',
+  adjustX: 'fit',
+  gap: 8,
+  childSizeX: 200,
+  childCountX: 3,
+  childCountY: 2,
+});
+
+// Using explicit track templates
+matrix({
+  tracksX: ['1fr', '2fr', '1fr'],
+  childCountY: 3,
+});
+```
 
 ### `balance`
 
@@ -152,8 +160,8 @@ import { balance } from '@niche-works/style-layouts';
 const { className, style } = balance({
   direction: 'x',
   adjustX: 'grow',
-  childSizeX: '200px',
-  spacing: '8px',
+  childSizeX: 200,
+  gap: 8,
 });
 ```
 
@@ -165,8 +173,8 @@ Sizes child elements equally to fill the container.
 import { pack } from '@niche-works/style-layouts';
 
 const { className, style } = pack({
-  direction: 'x', // 'x' | 'y' — default: 'x'
-  spacing: '8px',
+  direction: 'x',
+  gap: 8,
 });
 ```
 
@@ -178,55 +186,90 @@ Positions child elements at specified coordinates. Each child element should hav
 import { pin } from '@niche-works/style-layouts';
 
 const { className, style } = pin({
-  childSizeX: '100px',
-  childSizeY: '80px',
+  childSizeX: 100,
+  childSizeY: 80,
 });
 ```
 
 ## Options
 
+### Options by Layout
+
+| Option        | stack | flow | tile | matrix | balance | pack | pin |
+| ------------- | :---: | :--: | :--: | :----: | :-----: | :--: | :-: |
+| `direction`   |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
+| `alignX`      |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
+| `alignY`      |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
+| `adjustX`     |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
+| `adjustY`     |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
+| `gap`         |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
+| `gapX`        |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
+| `gapY`        |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
+| `childSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  ✓  |
+| `childSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  ✓  |
+| `childCountX` |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+| `childCountY` |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+| `tracksX`     |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+| `tracksY`     |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+
 ### Options Reference
 
-| Option        | Type                       | Description                                |
-| ------------- | -------------------------- | ------------------------------------------ |
-| `direction`   | `'x' \| 'y'`               | Main axis direction                        |
-| `alignX`      | [`AlignX`](#alignx-values) | Horizontal alignment of children           |
-| `alignY`      | [`AlignY`](#aligny-values) | Vertical alignment of children             |
-| `adjustX`     | [`Adjust`](#adjust-values) | Horizontal size adjustment of children     |
-| `adjustY`     | [`Adjust`](#adjust-values) | Vertical size adjustment of children       |
-| `spacing`     | `string \| number`         | Gap between children (both axes)           |
-| `spacingX`    | `string \| number`         | Gap between children (horizontal)          |
-| `spacingY`    | `string \| number`         | Gap between children (vertical)            |
-| `childSizeX`  | `string \| number`         | Width of child elements                    |
-| `childSizeY`  | `string \| number`         | Height of child elements                   |
-| `childCountX` | `number`                   | Number of children in horizontal direction |
-| `childCountY` | `number`                   | Number of children in vertical direction   |
-| `childX`      | `(string \| number)[]`     | Individual sizes of children (horizontal)  |
-| `childY`      | `(string \| number)[]`     | Individual sizes of children (vertical)    |
-
-### `Adjust` Values
-
-| Value    | Child smaller than parent | Child larger than parent |
-| -------- | ------------------------- | ------------------------ |
-| `none`   | No change                 | No change                |
-| `grow`   | Grows to fill             | No change                |
-| `shrink` | No change                 | Shrinks to fit           |
-| `fit`    | Grows to fill             | Shrinks to fit           |
+| Option         | Type                       | Description                                                |
+| -------------- | -------------------------- | ---------------------------------------------------------- |
+| `direction?`   | `'x' \| 'y'`               | Main axis direction (default: `'x'`)                       |
+| `alignX?`      | [`AlignX`](#alignx-values) | Horizontal alignment of children (default: `'left'`)       |
+| `alignY?`      | [`AlignY`](#aligny-values) | Vertical alignment of children (default: `'top'`)          |
+| `adjustX?`     | [`Adjust`](#adjust-values) | Horizontal size adjustment of children (default: `'none'`) |
+| `adjustY?`     | [`Adjust`](#adjust-values) | Vertical size adjustment of children (default: `'none'`)   |
+| `gap?`         | `number`                   | Gap between children (px, both axes)                       |
+| `gapX?`        | `number`                   | Gap between children (px, horizontal)                      |
+| `gapY?`        | `number`                   | Gap between children (px, vertical)                        |
+| `childSizeX?`  | `number`                   | Width of child elements (px)                               |
+| `childSizeY?`  | `number`                   | Height of child elements (px)                              |
+| `childCountX?` | `number`                   | Number of children in horizontal direction                 |
+| `childCountY?` | `number`                   | Number of children in vertical direction                   |
+| `tracksX?`     | `(string \| number)[]`     | Individual sizes of children (horizontal)                  |
+| `tracksY?`     | `(string \| number)[]`     | Individual sizes of children (vertical)                    |
 
 ### `AlignX` Values
 
-`'left'` | `'center'` | `'right'` | `'space-between'` | `'space-around'` | `'space-evenly'`
+| Value             | Horizontal Position        |
+| ----------------- | -------------------------- |
+| `'left'`          | Align to left              |
+| `'center'`        | Align to center            |
+| `'right'`         | Align to right             |
+| `'space-between'` | Space between items        |
+| `'space-around'`  | Space around items         |
+| `'space-evenly'`  | Space evenly between items |
 
 ### `AlignY` Values
 
-`'top'` | `'middle'` | `'bottom'` | `'space-between'` | `'space-around'` | `'space-evenly'`
+| Value             | Vertical Position          |
+| ----------------- | -------------------------- |
+| `'top'`           | Align to top               |
+| `'middle'`        | Align to middle            |
+| `'bottom'`        | Align to bottom            |
+| `'space-between'` | Space between items        |
+| `'space-around'`  | Space around items         |
+| `'space-evenly'`  | Space evenly between items |
+
+### `Adjust` Values
+
+| Value      | Child smaller than parent | Child larger than parent |
+| ---------- | ------------------------- | ------------------------ |
+| `'none'`   | No change                 | No change                |
+| `'grow'`   | Grows to fill             | No change                |
+| `'shrink'` | No change                 | Shrinks to fit           |
+| `'fit'`    | Grows to fill             | Shrinks to fit           |
+
+> **Note:** If individual width or height is set on a child element, that value takes precedence and the behavior described above may not apply.
 
 ## Return Value
 
-All layout functions return a `LayoutResult`:
+All layout functions return a `StyleLayoutResult`:
 
 ```ts
-type LayoutResult = {
+type StyleLayoutResult = {
   className?: string;
   style?: {
     [key: string]: string | number | undefined;

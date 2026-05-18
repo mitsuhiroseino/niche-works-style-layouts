@@ -1,2 +1,3 @@
-export { default } from './pack';
-export type * from './types';
+import '../core/pack/styles.scss';
+export type * from '../core/pack';
+export { default } from '../core/pack';

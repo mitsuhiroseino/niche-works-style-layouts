@@ -24,3 +24,11 @@ export const Standard: Story = {
   argTypes: ARG_TYPES.pack,
   args: { ...ARGS.pack },
 };
+
+export const IndividualSizes: Story = {
+  argTypes: ARG_TYPES.pack,
+  args: {
+    ...ARGS.pack,
+    sizeType: 'static',
+  },
+};

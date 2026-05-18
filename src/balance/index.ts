@@ -1,2 +1,3 @@
-export { default } from './balance';
-export type * from './types';
+import '../core/balance/styles.scss';
+export type * from '../core/balance';
+export { default } from '../core/balance';

@@ -24,3 +24,13 @@ export const Standard: Story = {
   argTypes: ARG_TYPES.pin,
   args: { ...ARGS.pin },
 };
+
+export const IndividualSizes: Story = {
+  argTypes: ARG_TYPES.pin,
+  args: {
+    ...ARGS.pin,
+    sizeType: 'static',
+    childSizeX: undefined,
+    childSizeY: undefined,
+  },
+};

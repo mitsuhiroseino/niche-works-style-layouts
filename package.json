@@ -1,6 +1,6 @@
 {
   "name": "@niche-works/style-layouts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "keywords": [
     "css",
@@ -13,20 +13,19 @@
   },
   "license": "MIT",
   "author": "Mitsuhiro Seino",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
     "./*": "./src/*/index.ts",
     "./constants": "./src/constants.ts",
-    "./*/constants": "./src/*/constants.ts",
-    "./styles.scss": "./styles.scss",
-    "./stack.scss": "./stack/stack.scss",
-    "./flow.scss": "./flow/flow.scss",
-    "./matrix.scss": "./matrix/matrix.scss",
-    "./tile.scss": "./tile/tile.scss",
-    "./balance.scss": "./balance/balance.scss",
-    "./pack.scss": "./pack/pack.scss",
-    "./pin.scss": "./pin/pin.scss"
+    "./core/*": "./src/core/*/index.ts",
+    "./core/constants": "./src/core/constants.ts",
+    "./core/styles.scss": "./src/core/styles.scss",
+    "./core/*.scss": "./src/core/*/styles.scss"
   },
   "main": "./src/index.ts",
   "module": "./src/index.ts",

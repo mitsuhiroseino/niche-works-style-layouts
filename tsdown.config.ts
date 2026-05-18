@@ -17,7 +17,7 @@ export default defineConfig({
   outDir: 'dist',
   minify: false,
   css: {
-    inject: false,
+    inject: true,
   },
   inputOptions: {
     external: createExternalOptionFunction(),
@@ -45,18 +45,16 @@ export default defineConfig({
             import: './constants.mjs',
             require: './constants.cjs',
           },
-          './*/constants': {
-            import: './*/constants.mjs',
-            require: './*/constants.cjs',
+          './core/*': {
+            import: './core/*/index.mjs',
+            require: './core/*/index.cjs',
           },
-          './styles.css': './styles.css',
-          './stack.css': './stack/stack.css',
-          './flow.css': './flow/flow.css',
-          './matrix.css': './matrix/matrix.css',
-          './tile.css': './tile/tile.css',
-          './balance.css': './balance/balance.css',
-          './pack.css': './pack/pack.css',
-          './pin.css': './pin/pin.css',
+          './core/constants': {
+            import: './core/constants.mjs',
+            require: './core/constants.cjs',
+          },
+          './core/styles.css': './core/styles.css',
+          './core/*.css': './core/*/styles.css',
         },
       },
     }),

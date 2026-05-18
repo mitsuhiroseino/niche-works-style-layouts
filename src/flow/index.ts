@@ -1,2 +1,3 @@
-export { default } from './flow';
-export type * from './types';
+import '../core/flow/styles.scss';
+export type * from '../core/flow';
+export { default } from '../core/flow';

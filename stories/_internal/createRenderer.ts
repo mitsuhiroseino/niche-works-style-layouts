@@ -1,9 +1,9 @@
-import type { CreateLayout } from '../../src/types';
+import type { StyleLayout } from '../../src/types';
 import createContainer from './createContainer';
 import type { DebugOptions } from './types';
 
 export default function createRenderer<P extends DebugOptions>(
-  layout: CreateLayout<any>,
+  layout: StyleLayout<any>,
 ) {
   return ({
     containerWidth,

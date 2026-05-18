@@ -98,76 +98,76 @@ export const AdjustYNoneWithCountAndSize: Story = {
   },
 };
 
-const SPACING = '10px';
+const GAP = '10px';
 
-// spacing + adjustX: grow
-export const AdjustXGrowWithCountAndSizeAndSpacing: Story = {
+// gap + adjustX: grow
+export const AdjustXGrowWithCountAndSizeAndGap: Story = {
   args: {
     childCountX: 3,
     childCountY: 1,
     childSizeX: '200px',
     adjustX: 'grow',
-    spacing: SPACING,
+    gap: GAP,
     childCount: 3,
   },
 };
 
-// spacing + adjustX: shrink
-export const AdjustXShrinkWithCountAndSizeAndSpacing: Story = {
+// gap + adjustX: shrink
+export const AdjustXShrinkWithCountAndSizeAndGap: Story = {
   args: {
     childCountX: 3,
     childCountY: 1,
     childSizeX: '200px',
     adjustX: 'shrink',
-    spacing: SPACING,
+    gap: GAP,
     childCount: 3,
   },
 };
 
-// spacing + adjustX: fit
-export const AdjustXFitWithCountAndSizeAndSpacing: Story = {
+// gap + adjustX: fit
+export const AdjustXFitWithCountAndSizeAndGap: Story = {
   args: {
     childCountX: 3,
     childCountY: 1,
     childSizeX: '200px',
     adjustX: 'fit',
-    spacing: SPACING,
+    gap: GAP,
     childCount: 3,
   },
 };
 
-// spacing + adjustY: grow
-export const AdjustYGrowWithCountAndSizeAndSpacing: Story = {
+// gap + adjustY: grow
+export const AdjustYGrowWithCountAndSizeAndGap: Story = {
   args: {
     childCountX: 1,
     childCountY: 3,
     childSizeY: '200px',
     adjustY: 'grow',
-    spacing: SPACING,
+    gap: GAP,
     childCount: 3,
   },
 };
 
-// spacing + adjustY: shrink
-export const AdjustYShrinkWithCountAndSizeAndSpacing: Story = {
+// gap + adjustY: shrink
+export const AdjustYShrinkWithCountAndSizeAndGap: Story = {
   args: {
     childCountX: 1,
     childCountY: 3,
     childSizeY: '200px',
     adjustY: 'shrink',
-    spacing: SPACING,
+    gap: GAP,
     childCount: 3,
   },
 };
 
-// spacing + adjustY: fit
-export const AdjustYFitWithCountAndSizeAndSpacing: Story = {
+// gap + adjustY: fit
+export const AdjustYFitWithCountAndSizeAndGap: Story = {
   args: {
     childCountX: 1,
     childCountY: 3,
     childSizeY: '200px',
     adjustY: 'fit',
-    spacing: SPACING,
+    gap: GAP,
     childCount: 3,
   },
 };

@@ -30,29 +30,39 @@ const { className, style } = stack({
   direction: 'x',
   alignX: 'center',
   alignY: 'middle',
-  spacing: '16px',
+  gap: 16,
 });
 
 // className: "nws-layout-stack nws-layout-direction-x ..."
-// style: { "--nws-layout-spacingX": "16px", ... }
+// style: { "--nws-layout-gapX": "16px", ... }
 ```
 
 ```html
-<div class="nws-layout-stack ..." style="--nws-layout-spacingX: 16px; ...">
+<div class="nws-layout-stack ..." style="--nws-layout-gapX: 16px; ...">
   <div>Item 1</div>
   <div>Item 2</div>
 </div>
 ```
 
-> **注意:** ライブラリのCSSを別途インポートしてください。
+### CSSの読み込み
+
+デフォルトのインポートではCSSが自動的に読み込まれます。
 
 ```ts
+import { stack } from '@niche-works/style-layouts';
+```
+
+CSSと関数を個別に管理したい場合は `core` ディレクトリ配下のモジュールを使用してください。
+
+```ts
+import { stack } from '@niche-works/style-layouts/core';
+
 // 全レイアウトをまとめてインポート
-import '@niche-works/style-layouts/styles.css';
+import '@niche-works/style-layouts/core/styles.css';
 
 // 必要なレイアウトのみインポート
-import '@niche-works/style-layouts/stack.css';
-import '@niche-works/style-layouts/tile.css';
+import '@niche-works/style-layouts/core/stack.css';
+import '@niche-works/style-layouts/core/tile.css';
 ```
 
 ## レイアウト種別
@@ -65,18 +75,20 @@ import '@niche-works/style-layouts/tile.css';
 import { stack } from '@niche-works/style-layouts';
 
 const { className, style } = stack({
-  direction: 'x', // 'x' | 'y' — デフォルト: 'x'
-  alignX: 'left', // 'left' | 'center' | 'right'
-  alignY: 'top', // 'top' | 'middle' | 'bottom'
-  adjustX: 'grow', // 'none' | 'grow' | 'shrink' | 'fit'
-  childSizeX: '200px',
-  spacing: '8px',
+  direction: 'x',
+  alignX: 'left',
+  alignY: 'top',
+  adjustX: 'grow',
+  gap: 8,
+  childSizeX: 200,
 });
 ```
 
 ### `flow`
 
 `stack`と同様ですが、コンテナサイズを超えた場合に子要素を折り返します。
+
+> 交差軸方向の `adjustX` / `adjustY` に `grow`、`shrink`、`fit` は指定できません。
 
 ```ts
 import { flow } from '@niche-works/style-layouts';
@@ -86,58 +98,54 @@ const { className, style } = flow({
   alignX: 'left',
   alignY: 'top',
   adjustX: 'fit',
-  childSizeX: '200px',
-  spacing: '8px',
+  gap: 8,
+  childSizeX: 200,
 });
 ```
-
-> 交差軸方向の `adjust` に `grow`、`shrink`、`fit` は指定できません。
-
-### `matrix`
-
-列数・行数を指定して子要素を格子状に並べます。
-
-```ts
-import { matrix } from '@niche-works/style-layouts';
-
-const { className, style } = matrix({
-  direction: 'x',
-  childCountX: 3, // 必須（または childX）
-  childCountY: 2, // 必須（または childY）
-  childSizeX: '200px',
-  adjustX: 'fit',
-  spacing: '8px',
-});
-```
-
-各軸で `childCountX` または `childX` のどちらか一方が必須です（両方は指定不可）。
-
-```ts
-// グリッドトラックを直接指定する場合
-matrix({
-  childX: ['1fr', '2fr', '1fr'],
-  childCountY: 3,
-});
-```
-
-> **注意:** このレイアウトはコンテナのサイズが外部から確定していることを前提としています。`width: max-content` など、子要素によってサイズが決まる親要素では、パーセンテージ値が意図通りに動作しない場合があります。
 
 ### `tile`
 
 子要素のサイズを基準にして格子状に並べます。列数は親要素のサイズと子要素のサイズに応じて自動で決まります。
+
+> **注意:** このレイアウトはコンテナのサイズが外部から確定していることを前提としています。`width: max-content` など、子要素によってサイズが決まる親要素では、パーセンテージ値が意図通りに動作しない場合があります。
 
 ```ts
 import { tile } from '@niche-works/style-layouts';
 
 const { className, style } = tile({
   direction: 'x',
-  childSizeX: '200px',
   adjustX: 'fit',
-  spacing: '8px',
+  gap: 8,
+  childSizeX: 200,
 });
 ```
 
-> **注意:** `matrix` と同様に、コンテナのサイズが外部から確定していることを前提としています。
+### `matrix`
+
+列数・行数を指定して子要素を格子状に並べます。
+
+各軸で `childCount` または `tracks` のどちらか一方が必須です（両方は指定不可）。
+
+> **注意:** `tile` と同様に、コンテナのサイズが外部から確定していることを前提としています。
+
+```ts
+import { matrix } from '@niche-works/style-layouts';
+
+const { className, style } = matrix({
+  direction: 'x',
+  adjustX: 'fit',
+  gap: 8,
+  childSizeX: 200,
+  childCountX: 3,
+  childCountY: 2,
+});
+
+// グリッドトラックを直接指定する場合
+matrix({
+  tracksX: ['1fr', '2fr', '1fr'],
+  childCountY: 3,
+});
+```
 
 ### `balance`
 
@@ -152,8 +160,8 @@ import { balance } from '@niche-works/style-layouts';
 const { className, style } = balance({
   direction: 'x',
   adjustX: 'grow',
-  childSizeX: '200px',
-  spacing: '8px',
+  childSizeX: 200,
+  gap: 8,
 });
 ```
 
@@ -165,8 +173,8 @@ const { className, style } = balance({
 import { pack } from '@niche-works/style-layouts';
 
 const { className, style } = pack({
-  direction: 'x', // 'x' | 'y' — デフォルト: 'x'
-  spacing: '8px',
+  direction: 'x',
+  gap: 8,
 });
 ```
 
@@ -178,55 +186,90 @@ const { className, style } = pack({
 import { pin } from '@niche-works/style-layouts';
 
 const { className, style } = pin({
-  childSizeX: '100px',
-  childSizeY: '80px',
+  childSizeX: 100,
+  childSizeY: 80,
 });
 ```
 
 ## オプション
 
+### レイアウト別対応表
+
+| オプション    | stack | flow | tile | matrix | balance | pack | pin |
+| ------------- | :---: | :--: | :--: | :----: | :-----: | :--: | :-: |
+| `direction`   |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
+| `alignX`      |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
+| `alignY`      |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
+| `adjustX`     |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
+| `adjustY`     |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
+| `gap`         |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
+| `gapX`        |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
+| `gapY`        |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
+| `childSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  ✓  |
+| `childSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  ✓  |
+| `childCountX` |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+| `childCountY` |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+| `tracksX`     |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+| `tracksY`     |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+
 ### オプション一覧
 
-| オプション    | 型                       | 説明                         |
-| ------------- | ------------------------ | ---------------------------- |
-| `direction`   | `'x' \| 'y'`             | 主軸の方向                   |
-| `alignX`      | [`AlignX`](#alignx-の値) | 子要素の横位置               |
-| `alignY`      | [`AlignY`](#aligny-の値) | 子要素の縦位置               |
-| `adjustX`     | [`Adjust`](#adjust-の値) | 子要素の横方向のサイズ調整   |
-| `adjustY`     | [`Adjust`](#adjust-の値) | 子要素の縦方向のサイズ調整   |
-| `spacing`     | `string \| number`       | 子要素間の余白（横縦共通）   |
-| `spacingX`    | `string \| number`       | 子要素間の余白（横方向）     |
-| `spacingY`    | `string \| number`       | 子要素間の余白（縦方向）     |
-| `childSizeX`  | `string \| number`       | 子要素の幅                   |
-| `childSizeY`  | `string \| number`       | 子要素の高さ                 |
-| `childCountX` | `string \| number`       | 子要素の横方向の数           |
-| `childCountY` | `string \| number`       | 子要素の縦方向の数           |
-| `childX`      | `(string \| number)[]`   | 子要素の横方向の個々のサイズ |
-| `childY`      | `(string \| number)[]`   | 子要素の縦方向の個々のサイズ |
-
-### `Adjust` の値
-
-| 値       | 子が親より小さい時 | 子が親より大きい時 |
-| -------- | ------------------ | ------------------ |
-| `none`   | そのまま           | そのまま           |
-| `grow`   | 伸びる             | そのまま           |
-| `shrink` | そのまま           | 縮む               |
-| `fit`    | 伸びる             | 縮む               |
+| オプション     | 型                       | 説明                                             |
+| -------------- | ------------------------ | ------------------------------------------------ |
+| `direction?`   | `'x' \| 'y'`             | 主軸の方向 (デフォルト `'x'`)                    |
+| `alignX?`      | [`AlignX`](#alignx-の値) | 子要素の横位置 (デフォルト `'left'`)             |
+| `alignY?`      | [`AlignY`](#aligny-の値) | 子要素の縦位置 (デフォルト `'top'`)              |
+| `adjustX?`     | [`Adjust`](#adjust-の値) | 子要素の横方向のサイズ調整 (デフォルト `'none'`) |
+| `adjustY?`     | [`Adjust`](#adjust-の値) | 子要素の縦方向のサイズ調整 (デフォルト `'none'`) |
+| `gap?`         | `number`                 | 子要素間の余白 (px,横縦共通)                     |
+| `gapX?`        | `number`                 | 子要素間の余白 (px,横方向)                       |
+| `gapY?`        | `number`                 | 子要素間の余白 (px,縦方向)                       |
+| `childSizeX?`  | `number`                 | 子要素の幅 (px)                                  |
+| `childSizeY?`  | `number`                 | 子要素の高さ (px)                                |
+| `childCountX?` | `number`                 | 子要素の横方向の数                               |
+| `childCountY?` | `number`                 | 子要素の縦方向の数                               |
+| `tracksX?`     | `(string \| number)[]`   | 子要素の横方向の個々のサイズ                     |
+| `tracksY?`     | `(string \| number)[]`   | 子要素の縦方向の個々のサイズ                     |
 
 ### `AlignX` の値
 
-`'left'` | `'center'` | `'right'` | `'space-between'` | `'space-around'` | `'space-evenly'`
+| 値                | 横方向の位置     |
+| ----------------- | ---------------- |
+| `'left'`          | 左寄せ           |
+| `'center'`        | 中央寄せ         |
+| `'right'`         | 右寄せ           |
+| `'space-between'` | 両端揃え         |
+| `'space-around'`  | 両端余白あり均等 |
+| `'space-evenly'`  | 完全均等         |
 
 ### `AlignY` の値
 
-`'top'` | `'middle'` | `'bottom'` | `'space-between'` | `'space-around'` | `'space-evenly'`
+| 値                | 縦方向の位置     |
+| ----------------- | ---------------- |
+| `'top'`           | 上寄せ           |
+| `'middle'`        | 中央寄せ         |
+| `'bottom'`        | 下寄せ           |
+| `'space-between'` | 両端揃え         |
+| `'space-around'`  | 両端余白あり均等 |
+| `'space-evenly'`  | 完全均等         |
+
+### `Adjust` の値
+
+| 値         | 子が親より小さい時 | 子が親より大きい時 |
+| ---------- | ------------------ | ------------------ |
+| `'none'`   | そのまま           | そのまま           |
+| `'grow'`   | 伸びる             | そのまま           |
+| `'shrink'` | そのまま           | 縮む               |
+| `'fit'`    | 伸びる             | 縮む               |
+
+> **注意:** 子要素に個別の幅や高さが設定されている場合、その値が優先されるため上記の動作にならないことがあります。
 
 ## 戻り値
 
-全てのレイアウト関数は `LayoutResult` を返します。
+全てのレイアウト関数は `StyleLayoutResult` を返します。
 
 ```ts
-type LayoutResult = {
+type StyleLayoutResult = {
   className?: string;
   style?: {
     [key: string]: string | number | undefined;

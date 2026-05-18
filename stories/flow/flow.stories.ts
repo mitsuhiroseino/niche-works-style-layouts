@@ -24,3 +24,13 @@ export const Standard: Story = {
   argTypes: ARG_TYPES.flow,
   args: { ...ARGS.flow },
 };
+
+export const IndividualSizes: Story = {
+  argTypes: ARG_TYPES.flow,
+  args: {
+    ...ARGS.flow,
+    sizeType: 'static',
+    childSizeX: undefined,
+    childSizeY: undefined,
+  },
+};

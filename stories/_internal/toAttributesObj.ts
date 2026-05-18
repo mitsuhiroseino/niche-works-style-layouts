@@ -1,5 +1,5 @@
 import type { LooseDictionary } from '@niche-works/types';
-import unit from '../../src/_helpers/unit';
+import unit from '../../src/core/_internal/unit';
 
 // 文字列→数値への変換を行うargs
 const NUMBER_PROPS = [
@@ -7,15 +7,15 @@ const NUMBER_PROPS = [
   'containerHeight',
   'childSizeX',
   'childSizeY',
-  'spacing',
-  'spacingX',
-  'spacingY',
+  'gap',
+  'gapX',
+  'gapY',
   'childCountX',
   'childCountY',
 ];
 
 // JSON.parseを行うargs
-const JSON_PROPS = ['childX', 'childY'];
+const JSON_PROPS = ['tracksX', 'tracksY'];
 
 // 数値にpxを付与するargs
 const UNIT_PROPS = [

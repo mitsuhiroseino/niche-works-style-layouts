@@ -7,7 +7,7 @@ import type {
   ChildOptions,
   ChildSizeOptions,
   DirectionOptions,
-  SpacingOptions,
+  GapOptions,
 } from '../../src/_types';
 import { Adjust, AlignX, AlignY, Direction } from '../../src/constants';
 import type { DebugOptions } from './types';
@@ -80,14 +80,14 @@ export const CHILD_SIZE_ARG_TYPES: ArgTypes<ChildSizeOptions> = {
   },
 };
 
-export const SPACING_ARG_TYPES: ArgTypes<SpacingOptions> = {
-  spacing: {
+export const GAP_ARG_TYPES: ArgTypes<GapOptions> = {
+  gap: {
     control: 'text',
   },
-  spacingX: {
+  gapX: {
     control: 'text',
   },
-  spacingY: {
+  gapY: {
     control: 'text',
   },
 };
@@ -102,10 +102,10 @@ export const CHILD_COUNT_ARG_TYPES: ArgTypes<ChildCountOptions> = {
 };
 
 export const CHILD_ARG_TYPES: ArgTypes<ChildOptions> = {
-  childX: {
+  tracksX: {
     control: 'text',
   },
-  childY: {
+  tracksY: {
     control: 'text',
   },
 };
@@ -135,7 +135,7 @@ export const ARG_TYPES = {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
-    ...SPACING_ARG_TYPES,
+    ...GAP_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -144,7 +144,7 @@ export const ARG_TYPES = {
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
-    ...SPACING_ARG_TYPES,
+    ...GAP_ARG_TYPES,
     ...CHILD_COUNT_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -152,7 +152,7 @@ export const ARG_TYPES = {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
-    ...SPACING_ARG_TYPES,
+    ...GAP_ARG_TYPES,
     ...CHILD_ARG_TYPES,
     ...CHILD_COUNT_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
@@ -160,7 +160,7 @@ export const ARG_TYPES = {
   },
   pack: {
     ...DIRECTION_ARG_TYPES,
-    ...SPACING_ARG_TYPES,
+    ...GAP_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   pin: {
@@ -172,7 +172,7 @@ export const ARG_TYPES = {
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
-    ...SPACING_ARG_TYPES,
+    ...GAP_ARG_TYPES,
     ...CHILD_COUNT_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -180,7 +180,7 @@ export const ARG_TYPES = {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
-    ...SPACING_ARG_TYPES,
+    ...GAP_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -201,8 +201,8 @@ export const ADJUST_OPTIONS: AdjustOptions = {
 };
 
 export const CHILD_OPTIONS: ChildOptions = {
-  childX: undefined,
-  childY: undefined,
+  tracksX: undefined,
+  tracksY: undefined,
 };
 
 export const CHILD_COUNT_OPTIONS: ChildCountOptions = {
@@ -215,10 +215,10 @@ export const CHILD_SIZE_OPTIONS: ChildSizeOptions = {
   childSizeY: '120',
 };
 
-export const SPACING_OPTIONS: SpacingOptions = {
-  spacing: '8',
-  spacingX: undefined,
-  spacingY: undefined,
+export const GAP_OPTIONS: GapOptions = {
+  gap: '8',
+  gapX: undefined,
+  gapY: undefined,
 };
 
 export const DEBUG_PARAMS: DebugOptions = {
@@ -235,14 +235,14 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
-    ...SPACING_OPTIONS,
+    ...GAP_OPTIONS,
     ...DEBUG_PARAMS,
   },
   flow: {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
-    ...SPACING_OPTIONS,
+    ...GAP_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
     ...DEBUG_PARAMS,
   },
@@ -253,7 +253,7 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...CHILD_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
     ...CHILD_COUNT_OPTIONS,
-    ...SPACING_OPTIONS,
+    ...GAP_OPTIONS,
     ...DEBUG_PARAMS,
   },
   pin: {
@@ -263,14 +263,14 @@ export const ARGS: Record<string, Record<string, any>> = {
   },
   pack: {
     ...DIRECTION_OPTIONS,
-    ...SPACING_OPTIONS,
+    ...GAP_OPTIONS,
     ...DEBUG_PARAMS,
   },
   stack: {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
-    ...SPACING_OPTIONS,
+    ...GAP_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
     ...DEBUG_PARAMS,
   },
@@ -279,7 +279,7 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
-    ...SPACING_OPTIONS,
+    ...GAP_OPTIONS,
     ...DEBUG_PARAMS,
   },
 };

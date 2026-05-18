@@ -25,7 +25,7 @@ export const Standard: Story = {
   args: { ...ARGS.matrix },
 };
 
-export const Child: Story = {
+export const Tracks: Story = {
   argTypes: ARG_TYPES.matrix,
   args: {
     ...ARGS.matrix,
@@ -33,7 +33,17 @@ export const Child: Story = {
     childCountY: undefined,
     childSizeX: undefined,
     childSizeY: undefined,
-    childX: '[200, 50, "1fr", 100]' as any,
-    childY: '[50, 30, 100]' as any,
+    tracksX: '[200, 50, "1fr", 100]' as any,
+    tracksY: '[50, 30, 100]' as any,
+  },
+};
+
+export const IndividualSizes: Story = {
+  argTypes: ARG_TYPES.matrix,
+  args: {
+    ...ARGS.matrix,
+    sizeType: 'static',
+    childSizeX: undefined,
+    childSizeY: undefined,
   },
 };

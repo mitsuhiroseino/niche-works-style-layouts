@@ -24,3 +24,13 @@ export const Standard: Story = {
   argTypes: ARG_TYPES.balance,
   args: { ...ARGS.balance },
 };
+
+export const IndividualSizes: Story = {
+  argTypes: ARG_TYPES.balance,
+  args: {
+    ...ARGS.balance,
+    sizeType: 'static',
+    childSizeX: undefined,
+    childSizeY: undefined,
+  },
+};

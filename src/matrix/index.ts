@@ -1,2 +1,3 @@
-export { default } from './matrix';
-export type * from './types';
+import '../core/matrix/styles.scss';
+export type * from '../core/matrix';
+export { default } from '../core/matrix';

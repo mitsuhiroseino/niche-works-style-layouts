@@ -24,3 +24,13 @@ export const Standard: Story = {
   argTypes: ARG_TYPES.tile,
   args: { ...ARGS.tile },
 };
+
+export const IndividualSizes: Story = {
+  argTypes: ARG_TYPES.tile,
+  args: {
+    ...ARGS.tile,
+    sizeType: 'static',
+    childSizeX: undefined,
+    childSizeY: undefined,
+  },
+};

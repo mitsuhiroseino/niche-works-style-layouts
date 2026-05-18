@@ -1,6 +1,6 @@
 import type { LooseDictionary } from '@niche-works/types';
 import chroma from 'chroma-js';
-import type { CreateLayout } from '../../src/types';
+import type { StyleLayout } from '../../src/types';
 import assignStyle from './assignStyle';
 import createResizableElement from './createResizableElement';
 import toAttributesObj from './toAttributesObj';
@@ -12,7 +12,7 @@ function _random(scale: number) {
 }
 
 export default function createContainer(
-  layout: CreateLayout,
+  layout: StyleLayout,
   options: LooseDictionary,
   debugOptions: DebugOptions,
 ) {
@@ -36,8 +36,8 @@ export default function createContainer(
       return list.map(() => ({}));
     } else {
       return list.map(() => ({
-        height: 120,
-        width: 80,
+        height: 80,
+        width: 120,
       }));
     }
   })();
@@ -67,7 +67,7 @@ export default function createContainer(
       {
         width: containerWidth,
         height: containerHeight,
-        backgroundColor: 'rgba(128, 128, 128, 0.1)',
+        backgroundColor: 'rgba(245, 230, 232, 0.3)',
         resize: 'horizontal',
         ...style,
       },

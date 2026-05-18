@@ -1,0 +1,46 @@
+.nws-layout-pack {
+  // 変数
+  --nws-layout-gapX: 0px;
+  --nws-layout-gapY: 0px;
+
+  // pack用のスタイル
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  &.nws-layout-gapX {
+    // 横方向の間隔
+    column-gap: var(--nws-layout-gapX);
+  }
+
+  &.nws-layout-gapY {
+    // 縦方向の間隔
+    row-gap: var(--nws-layout-gapY);
+  }
+
+  // 横並び
+  &.nws-layout-direction-x {
+    flex-direction: row;
+    & > * {
+      flex-basis: 0;
+      flex-grow: 1;
+      flex-shrink: 1;
+      min-width: 0;
+      min-height: 100%;
+      max-height: 100%;
+    }
+  }
+
+  // 縦並び
+  &.nws-layout-direction-y {
+    flex-direction: column;
+    & > * {
+      flex-basis: 0;
+      flex-grow: 1;
+      flex-shrink: 1;
+      min-height: 0;
+      min-width: 100%;
+      max-width: 100%;
+    }
+  }
+}
