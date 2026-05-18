@@ -17,8 +17,8 @@ import unit from './unit';
  */
 export default function applyChildSize(
   result: StyleLayoutResult,
-  childSizeX: number,
-  childSizeY: number,
+  childSizeX: number | null | undefined,
+  childSizeY: number | null | undefined,
 ): void {
   // 子要素のサイズ
   if (hasValue(childSizeX)) {

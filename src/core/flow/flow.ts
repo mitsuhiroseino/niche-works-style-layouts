@@ -7,6 +7,7 @@ import {
   clsLayoutDirection,
   varLayoutChildSize,
 } from '../_constants';
+import applyChildRatio from '../_internal/applyChildRatio';
 import applyGap from '../_internal/applyGap';
 import hasValue from '../_internal/hasValue';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
@@ -34,6 +35,8 @@ const flow: StyleLayout<FlowLayoutOptions> = (options = {}) => {
     gapY = gap,
     childSizeX,
     childSizeY,
+    childRatioX,
+    childRatioY,
   } = maybeDefault(
     options,
     {
@@ -56,6 +59,9 @@ const flow: StyleLayout<FlowLayoutOptions> = (options = {}) => {
 
   // 間隔の適用
   applyGap(result, gap, gapX, gapY);
+
+  // 子要素の縦横比
+  applyChildRatio(result, childRatioX, childRatioY);
 
   const resultList: StyleLayoutResult[] = [result];
 

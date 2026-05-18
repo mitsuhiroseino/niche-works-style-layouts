@@ -2,21 +2,12 @@
   // 変数
   --nws-layout-gapX: 0px;
   --nws-layout-gapY: 0px;
+  --nws-layout-childRatio: auto;
 
   // pack用のスタイル
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
-
-  &.nws-layout-gapX {
-    // 横方向の間隔
-    column-gap: var(--nws-layout-gapX);
-  }
-
-  &.nws-layout-gapY {
-    // 縦方向の間隔
-    row-gap: var(--nws-layout-gapY);
-  }
 
   // 横並び
   &.nws-layout-direction-x {
@@ -42,5 +33,15 @@
       min-width: 100%;
       max-width: 100%;
     }
+  }
+
+  &.nws-layout-gapX {
+    // 横方向の間隔
+    column-gap: var(--nws-layout-gapX);
+  }
+
+  &.nws-layout-gapY {
+    // 縦方向の間隔
+    row-gap: var(--nws-layout-gapY);
   }
 }

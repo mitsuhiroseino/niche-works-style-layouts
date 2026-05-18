@@ -5,6 +5,7 @@ import {
   clsLayoutAlign,
   clsLayoutDirection,
 } from '../_constants';
+import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
 import { clsLayoutBalance } from '../constants';
@@ -28,6 +29,8 @@ const balance: StyleLayout<BalanceLayoutOptions> = (options = {}) => {
     gapY,
     childSizeX,
     childSizeY,
+    childRatioX,
+    childRatioY,
   } = maybeDefault(
     options,
     {
@@ -56,6 +59,9 @@ const balance: StyleLayout<BalanceLayoutOptions> = (options = {}) => {
 
   // 子要素のサイズ
   applyChildSize(result, childSizeX, childSizeY);
+
+  // 子要素の縦横比
+  applyChildRatio(result, childRatioX, childRatioY);
 
   return result;
 };

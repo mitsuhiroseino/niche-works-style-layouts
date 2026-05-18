@@ -2,15 +2,17 @@ import type {
   AdjustOptions,
   AlignOptions,
   ChildCountOptions,
-  ChildOptions,
+  ChildRatioOptions,
   ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  TracksOptions,
 } from '../_types';
 
 export type MatrixLayoutOptions = DirectionOptions &
   AlignOptions &
   AdjustOptions &
+  ChildRatioOptions &
   GapOptions &
   MatrixAxisXOptions &
   MatrixAxisYOptions;
@@ -30,7 +32,7 @@ type MatrixAxisXWithCountOptions = {
 type MatrixAxisXWithTemplateOptions = {
   childCountX?: never;
   childSizeX?: never;
-  tracksX: ChildOptions['tracksX'];
+  tracksX: TracksOptions['tracksX'];
 };
 
 /**
@@ -55,7 +57,7 @@ type MatrixAxisYWithCountOptions = {
 type MatrixAxisYWithTemplateOptions = {
   childCountY?: never;
   childSizeY?: never;
-  tracksY: ChildOptions['tracksY'];
+  tracksY: TracksOptions['tracksY'];
 };
 
 /**

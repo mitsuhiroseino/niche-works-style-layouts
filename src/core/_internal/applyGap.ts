@@ -18,9 +18,9 @@ import unit from './unit';
  */
 export default function applyGap(
   result: StyleLayoutResult,
-  gap: number,
-  gapX: number,
-  gapY: number,
+  gap: number | null | undefined,
+  gapX: number | null | undefined,
+  gapY: number | null | undefined,
 ): void {
   gapX = gapX ?? gap;
   if (hasValue(gapX)) {

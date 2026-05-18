@@ -277,14 +277,9 @@ export const clsLayoutChildSizeX = 'nws-layout-childSizeX';
 export const clsLayoutChildSizeY = 'nws-layout-childSizeY';
 
 /**
- * 子要素の幅の比
+ * 子要素の縦横比
  */
-export const clsLayoutChildRatioX = 'nws-layout-childRatioX';
-
-/**
- * 子要素の高さの比
- */
-export const clsLayoutChildRatioY = 'nws-layout-childRatioY';
+export const clsLayoutChildRatio = 'nws-layout-childRatio';
 
 /**
  * 子要素の横方向の数
@@ -334,15 +329,9 @@ export const varLayoutChildSizeY = '--nws-layout-childSizeY';
 
 /**
  * 変数\
- * 子要素の幅の比
+ * 子要素の縦横比
  */
-export const varLayoutChildRatioX = '--nws-layout-childRatioX';
-
-/**
- * 変数\
- * 子要素の高さの比
- */
-export const varLayoutChildRatioY = '--nws-layout-childRatioY';
+export const varLayoutChildRatio = '--nws-layout-childRatio';
 
 /**
  * 変数\

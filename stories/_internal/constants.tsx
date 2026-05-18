@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ArgTypes } from '@storybook/web-components-vite';
+import { Adjust, AlignX, AlignY, Direction } from '../../src/constants';
 import type {
   AdjustOptions,
   AlignOptions,
   ChildCountOptions,
-  ChildOptions,
+  ChildRatioOptions,
   ChildSizeOptions,
   DirectionOptions,
   GapOptions,
-} from '../../src/_types';
-import { Adjust, AlignX, AlignY, Direction } from '../../src/constants';
+  TracksOptions,
+} from '../../src/core/_types';
 import type { DebugOptions } from './types';
 
 export const DIRECTION_ARG_OPTIONS = Object.values(Direction);
@@ -80,6 +81,15 @@ export const CHILD_SIZE_ARG_TYPES: ArgTypes<ChildSizeOptions> = {
   },
 };
 
+export const CHILD_RATIO_ARG_TYPES: ArgTypes<ChildRatioOptions> = {
+  childRatioX: {
+    control: 'text',
+  },
+  childRatioY: {
+    control: 'text',
+  },
+};
+
 export const GAP_ARG_TYPES: ArgTypes<GapOptions> = {
   gap: {
     control: 'text',
@@ -101,7 +111,7 @@ export const CHILD_COUNT_ARG_TYPES: ArgTypes<ChildCountOptions> = {
   },
 };
 
-export const CHILD_ARG_TYPES: ArgTypes<ChildOptions> = {
+export const TRACKS_ARG_TYPES: ArgTypes<TracksOptions> = {
   tracksX: {
     control: 'text',
   },
@@ -137,14 +147,16 @@ export const ARG_TYPES = {
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   flow: {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
     ...GAP_ARG_TYPES,
+    ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
     ...CHILD_COUNT_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
@@ -153,9 +165,10 @@ export const ARG_TYPES = {
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
-    ...CHILD_ARG_TYPES,
-    ...CHILD_COUNT_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
+    ...CHILD_COUNT_ARG_TYPES,
+    ...TRACKS_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   pack: {
@@ -165,15 +178,16 @@ export const ARG_TYPES = {
   },
   pin: {
     ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   stack: {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
-    ...CHILD_SIZE_ARG_TYPES,
     ...GAP_ARG_TYPES,
-    ...CHILD_COUNT_ARG_TYPES,
+    ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
   tile: {
@@ -182,6 +196,7 @@ export const ARG_TYPES = {
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
 } as const;
@@ -200,9 +215,20 @@ export const ADJUST_OPTIONS: AdjustOptions = {
   adjustY: 'none',
 };
 
-export const CHILD_OPTIONS: ChildOptions = {
-  tracksX: undefined,
-  tracksY: undefined,
+export const GAP_OPTIONS: GapOptions = {
+  gap: '8' as any,
+  gapX: undefined,
+  gapY: undefined,
+};
+
+export const CHILD_SIZE_OPTIONS: ChildSizeOptions = {
+  childSizeX: '60' as any,
+  childSizeY: '120' as any,
+};
+
+export const CHILD_RATIO_OPTIONS: ChildRatioOptions = {
+  childRatioX: undefined,
+  childRatioY: undefined,
 };
 
 export const CHILD_COUNT_OPTIONS: ChildCountOptions = {
@@ -210,15 +236,9 @@ export const CHILD_COUNT_OPTIONS: ChildCountOptions = {
   childCountY: '3' as any,
 };
 
-export const CHILD_SIZE_OPTIONS: ChildSizeOptions = {
-  childSizeX: '60',
-  childSizeY: '120',
-};
-
-export const GAP_OPTIONS: GapOptions = {
-  gap: '8',
-  gapX: undefined,
-  gapY: undefined,
+export const TRACKS_OPTIONS: TracksOptions = {
+  tracksX: undefined,
+  tracksY: undefined,
 };
 
 export const DEBUG_PARAMS: DebugOptions = {
@@ -234,8 +254,9 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
     ...GAP_OPTIONS,
+    ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
   flow: {
@@ -244,20 +265,23 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
   matrix: {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
-    ...CHILD_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
-    ...CHILD_COUNT_OPTIONS,
     ...GAP_OPTIONS,
+    ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
+    ...CHILD_COUNT_OPTIONS,
+    ...TRACKS_OPTIONS,
     ...DEBUG_PARAMS,
   },
   pin: {
     ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
     posType: 'static',
   },
@@ -272,14 +296,16 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
   tile: {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
-    ...CHILD_SIZE_OPTIONS,
     ...GAP_OPTIONS,
+    ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
 };

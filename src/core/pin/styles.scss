@@ -15,7 +15,13 @@
   &.nws-layout-childSizeX > * {
     width: var(--nws-layout-childSizeX);
   }
+
   &.nws-layout-childSizeY > * {
     height: var(--nws-layout-childSizeY);
+  }
+
+  &.nws-layout-childRatio > * {
+    // 縦横比
+    aspect-ratio: var(--nws-layout-childRatio);
   }
 }

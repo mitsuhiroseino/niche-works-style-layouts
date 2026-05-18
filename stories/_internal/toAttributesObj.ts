@@ -5,11 +5,13 @@ import unit from '../../src/core/_internal/unit';
 const NUMBER_PROPS = [
   'containerWidth',
   'containerHeight',
-  'childSizeX',
-  'childSizeY',
   'gap',
   'gapX',
   'gapY',
+  'childSizeX',
+  'childSizeY',
+  'childRatioX',
+  'childRatioY',
   'childCountX',
   'childCountY',
 ];
@@ -21,8 +23,6 @@ const JSON_PROPS = ['tracksX', 'tracksY'];
 const UNIT_PROPS = [
   'containerWidth',
   'containerHeight',
-  'childSizeX',
-  'childSizeY',
   'top',
   'left',
   'width',

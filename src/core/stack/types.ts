@@ -1,6 +1,7 @@
 import type {
   AdjustOptions,
   AlignOptions,
+  ChildRatioOptions,
   ChildSizeOptions,
   DirectionOptions,
   GapOptions,
@@ -15,6 +16,7 @@ import type { AlignXBase, AlignYBase } from '../constants';
  */
 export type StackLayoutOptions = AdjustOptions &
   ChildSizeOptions &
+  ChildRatioOptions &
   GapOptions &
   StackDirectionWithAlignOptions;
 

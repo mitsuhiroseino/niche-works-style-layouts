@@ -16,8 +16,8 @@ import hasValue from './hasValue';
  */
 export default function applyChildCount(
   result: StyleLayoutResult,
-  childCountX: number,
-  childCountY: number,
+  childCountX: number | null | undefined,
+  childCountY: number | null | undefined,
 ): void {
   // 子要素の数
   if (hasValue(childCountX)) {

@@ -7,6 +7,7 @@ import {
   varLayoutGap,
   varLayoutTemplate,
 } from '../_constants';
+import applyChildRatio from '../_internal/applyChildRatio';
 import applyGap from '../_internal/applyGap';
 import hasValue from '../_internal/hasValue';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
@@ -15,22 +16,24 @@ import type {
   AdjustOptions,
   AlignOptions,
   ChildCountOptions,
-  ChildOptions,
+  ChildRatioOptions,
   ChildSizeOptions,
   DirectionOptions,
   GapOptions,
+  TracksOptions,
 } from '../_types';
 import { Adjust, clsLayoutMatrix } from '../constants';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { MatrixLayoutOptions } from './types';
 
-type MatrixLayoutInternalOptions = AdjustOptions &
+type MatrixLayoutInternalOptions = DirectionOptions &
   AlignOptions &
+  AdjustOptions &
+  GapOptions &
   ChildCountOptions &
-  ChildOptions &
+  TracksOptions &
   ChildSizeOptions &
-  DirectionOptions &
-  GapOptions;
+  ChildRatioOptions;
 
 /**
  * matrixレイアウト
@@ -49,6 +52,8 @@ const matrix: StyleLayout<MatrixLayoutOptions> = (options) => {
     gapY = gap,
     childSizeX,
     childSizeY,
+    childRatioX,
+    childRatioY,
     childCountX,
     childCountY,
     tracksX,
@@ -76,6 +81,9 @@ const matrix: StyleLayout<MatrixLayoutOptions> = (options) => {
 
   // 間隔の適用
   applyGap(result, gap, gapX, gapY);
+
+  // 子要素の縦横比
+  applyChildRatio(result, childRatioX, childRatioY);
 
   return mergeLayoutResults([
     result,

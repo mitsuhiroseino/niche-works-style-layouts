@@ -94,12 +94,12 @@ export type ChildSizeOptions = {
  */
 export type ChildRatioOptions = {
   /**
-   * 子要素の幅の比
+   * 子要素の縦横比(横)
    */
   childRatioX?: number;
 
   /**
-   * 子要素の高さの比
+   * 子要素の縦横比(縦)
    */
   childRatioY?: number;
 };
@@ -120,9 +120,9 @@ export type ChildCountOptions = {
 };
 
 /**
- * childのテンプレート
+ * 子要素のサイズと数
  */
-export type ChildOptions = {
+export type TracksOptions = {
   /**
    * 横方向の設定
    * このプロパティが設定されている場合、childCountX,childSizeXは無効
