@@ -112,6 +112,11 @@ export type Adjust = (typeof Adjust)[keyof typeof Adjust];
 // スタイル用のクラス
 
 /**
+ * レイアウト種別: stack
+ */
+export const clsLayoutStack = 'nws-layout-stack';
+
+/**
  * レイアウト種別: balance
  */
 export const clsLayoutBalance = 'nws-layout-balance';
@@ -137,9 +142,9 @@ export const clsLayoutPack = 'nws-layout-pack';
 export const clsLayoutPin = 'nws-layout-pin';
 
 /**
- * レイアウト種別: stack
+ * レイアウト種別: layer
  */
-export const clsLayoutStack = 'nws-layout-stack';
+export const clsLayoutLayer = 'nws-layout-layer';
 
 /**
  * レイアウト種別: tile

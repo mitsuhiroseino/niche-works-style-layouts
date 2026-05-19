@@ -11,12 +11,13 @@
     position: absolute;
   }
 
-  // 子要素のサイズ
   &.nws-layout-childSizeX > * {
+    // 子要素の幅
     width: var(--nws-layout-childSizeX);
   }
 
   &.nws-layout-childSizeY > * {
+    // 子要素の高さ
     height: var(--nws-layout-childSizeY);
   }
 

@@ -1,0 +1,90 @@
+.nws-layout-layer {
+  // 変数
+  --nws-layout-childSizeX: auto;
+  --nws-layout-childSizeY: auto;
+  --nws-layout-childRatio: auto;
+
+  // layer用のスタイル
+  display: grid;
+
+  > * {
+    grid-area: 1 / 1;
+  }
+
+  &.nws-layout-alignX-left > * {
+    // 横位置: 左
+    justify-self: start;
+  }
+  &.nws-layout-alignX-center > * {
+    // 横位置: 中央
+    justify-self: center;
+  }
+  &.nws-layout-alignX-right > * {
+    // 横位置: 右
+    justify-self: end;
+  }
+
+  &.nws-layout-alignY-top > * {
+    // 縦位置: 上
+    align-self: start;
+  }
+  &.nws-layout-alignY-middle > * {
+    // 縦位置: 中央
+    align-self: center;
+  }
+  &.nws-layout-alignY-bottom > * {
+    // 縦位置: 下
+    align-self: end;
+  }
+
+  &.nws-layout-childSizeX > * {
+    // 子要素の幅
+    width: var(--nws-layout-childSizeX);
+  }
+
+  &.nws-layout-childSizeY > * {
+    // 子要素の高さ
+    height: var(--nws-layout-childSizeY);
+  }
+
+  &.nws-layout-adjustX-fit > * {
+    // 子要素の幅調整: 伸ばす & 縮める
+    justify-self: stretch;
+    width: auto;
+  }
+  &.nws-layout-adjustX-grow > * {
+    // 子要素の幅調整: 伸ばす
+    justify-self: stretch;
+    width: auto;
+    min-width: var(--nws-layout-childSizeX);
+  }
+  &.nws-layout-adjustX-shrink > * {
+    // 子要素の幅調整: 縮める
+    width: clamp(0px, 100%, var(--nws-layout-childSizeX));
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  &.nws-layout-adjustY-fit > * {
+    // 子要素の高さ調整: 伸ばす & 縮める
+    align-self: stretch;
+    height: auto;
+  }
+  &.nws-layout-adjustY-grow > * {
+    // 子要素の高さ調整: 伸ばす
+    align-self: stretch;
+    height: auto;
+    min-height: var(--nws-layout-childSizeY);
+  }
+  &.nws-layout-adjustY-shrink > * {
+    // 子要素の高さ調整: 縮める
+    height: clamp(0px, 100%, var(--nws-layout-childSizeY));
+    min-height: 0;
+    max-height: 100%;
+  }
+
+  // アスペクト比
+  &.nws-layout-childRatio > * {
+    aspect-ratio: var(--nws-layout-childRatio);
+  }
+}

@@ -9,8 +9,8 @@
   justify-content: flex-start;
   align-items: stretch;
 
-  // 横並び
   &.nws-layout-direction-x {
+    // 子要素を並べる向き・横並び
     flex-direction: row;
     & > * {
       flex-basis: 0;
@@ -22,8 +22,8 @@
     }
   }
 
-  // 縦並び
   &.nws-layout-direction-y {
+    // 子要素を並べる向き・縦並び
     flex-direction: column;
     & > * {
       flex-basis: 0;

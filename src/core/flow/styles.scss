@@ -10,7 +10,6 @@
   display: flex;
   flex-wrap: wrap;
 
-  // 横並び
   &.nws-layout-direction-x {
     // 子要素を並べる向き・横並び
     flex-direction: row;
@@ -70,14 +69,21 @@
       align-content: space-evenly;
     }
 
-    // 子要素の幅調整
+    &.nws-layout-childSizeX > * {
+      // 子要素の幅
+      flex-basis: var(--nws-layout-childSizeX);
+    }
+
+    &.nws-layout-childSizeY > * {
+      // 子要素の高さ
+      height: var(--nws-layout-childSizeY);
+    }
+
     & > * {
+      // 子要素の幅調整
       flex-grow: 0;
       flex-shrink: 0;
       min-width: 0;
-    }
-    &.nws-layout-childSizeX > * {
-      flex-basis: var(--nws-layout-childSizeX);
     }
     &.nws-layout-adjustX-fit {
       // 子要素の幅調整: 伸ばす & 縮める
@@ -103,21 +109,16 @@
       flex-shrink: 1;
     }
 
-    // 子要素の高さ調整
     & > * {
+      // 子要素の高さ調整
       min-height: 0;
     }
-    &.nws-layout-childSizeY > * {
-      height: var(--nws-layout-childSizeY);
-    }
-
     // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
     // 子要素の高さ調整: 伸ばす & 縮める (.nws-layout-adjustY-fit)
     // 子要素の高さ調整: 伸ばす (.nws-layout-adjustY-grow)
     // 子要素の高さ調整: 縮める (.ws-layout-adjustY-shrink)
   }
 
-  // 縦並び
   &.nws-layout-direction-y {
     // 子要素を並べる向き・縦並び
     flex-direction: column;
@@ -177,26 +178,30 @@
       justify-content: space-evenly;
     }
 
-    // 子要素の幅調整
-    & > * {
-      min-width: 0;
-    }
     &.nws-layout-childSizeX > * {
+      // 子要素の幅
       width: var(--nws-layout-childSizeX);
+    }
+
+    &.nws-layout-childSizeY > * {
+      // 子要素の高さ
+      flex-basis: var(--nws-layout-childSizeY);
+    }
+
+    & > * {
+      // 子要素の幅調整
+      min-width: 0;
     }
     // wrap時に交差軸を制御することは不可能なため下記はスタイルなし
     // 子要素の幅調整: 伸ばす & 縮める (.nws-layout-adjustX-fit)
     // 子要素の幅調整: 伸ばす (.nws-layout-adjustX-grow)
     // 子要素の幅調整: 縮める (.ws-layout-adjustX-shrink)
 
-    // 子要素の高さ調整
     & > * {
+      // 子要素の高さ調整
       flex-grow: 0;
       flex-shrink: 0;
       min-height: 0;
-    }
-    &.nws-layout-childSizeY > * {
-      flex-basis: var(--nws-layout-childSizeY);
     }
     &.nws-layout-adjustY-fit {
       // 子要素の高さ調整: 伸ばす & 縮める

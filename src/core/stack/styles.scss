@@ -9,7 +9,6 @@
   // stack用のスタイル
   display: flex;
 
-  // 横並び
   &.nws-layout-direction-x {
     // 子要素を並べる向き・横並び
     flex-direction: row;
@@ -58,14 +57,21 @@
     // 縦位置: 両端余白あり均等 (.nws-layout-alignY-spaceAround)
     // 縦位置: 完全均等 (.nws-layout-alignY-spaceEvenly)
 
-    // 子要素の幅調整
+    &.nws-layout-childSizeX > * {
+      // 子要素の幅
+      flex-basis: var(--nws-layout-childSizeX);
+    }
+
+    &.nws-layout-childSizeY > * {
+      // 子要素の高さ
+      height: var(--nws-layout-childSizeY);
+    }
+
     & > * {
+      // 子要素の幅調整
       flex-grow: 0;
       flex-shrink: 0;
       min-width: 0;
-    }
-    &.nws-layout-childSizeX > * {
-      flex-basis: var(--nws-layout-childSizeX);
     }
     &.nws-layout-adjustX-fit {
       // 子要素の幅調整: 伸ばす & 縮める
@@ -91,12 +97,9 @@
       flex-shrink: 1;
     }
 
-    // 子要素の高さ調整
     & > * {
+      // 子要素の高さ調整
       min-height: 0;
-    }
-    &.nws-layout-childSizeY > * {
-      height: var(--nws-layout-childSizeY);
     }
     &.nws-layout-adjustY-fit {
       // 子要素の高さ調整: 伸ばす & 縮める
@@ -120,7 +123,6 @@
     }
   }
 
-  // 縦並び
   &.nws-layout-direction-y {
     // 子要素を並べる向き・縦並び
     flex-direction: column;
@@ -169,12 +171,19 @@
       justify-content: space-evenly;
     }
 
-    // 子要素の幅調整
-    & > * {
-      min-width: 0;
-    }
     &.nws-layout-childSizeX > * {
+      // 子要素の幅
       width: var(--nws-layout-childSizeX);
+    }
+
+    &.nws-layout-childSizeY > * {
+      // 子要素の高さ
+      flex-basis: var(--nws-layout-childSizeY);
+    }
+
+    & > * {
+      // 子要素の幅調整
+      min-width: 0;
     }
     &.nws-layout-adjustX-fit {
       // 子要素の幅調整: 伸ばす & 縮める
@@ -197,14 +206,11 @@
       max-width: 100%;
     }
 
-    // 子要素の高さ調整
     & > * {
+      // 子要素の高さ調整
       flex-grow: 0;
       flex-shrink: 0;
       min-height: 0;
-    }
-    &.nws-layout-childSizeY > * {
-      flex-basis: var(--nws-layout-childSizeY);
     }
     &.nws-layout-adjustY-fit {
       // 子要素の高さ調整: 伸ばす & 縮める

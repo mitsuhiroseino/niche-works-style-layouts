@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ArgTypes } from '@storybook/web-components-vite';
-import { Adjust, AlignX, AlignY, Direction } from '../../src/constants';
+import {
+  Adjust,
+  AlignX,
+  AlignXBase,
+  AlignY,
+  AlignYBase,
+  Direction,
+} from '../../src/constants';
 import type {
   AdjustOptions,
   AlignOptions,
@@ -15,7 +22,11 @@ import type { DebugOptions } from './types';
 
 export const DIRECTION_ARG_OPTIONS = Object.values(Direction);
 
+export const ALAGN_X_BASE_ARG_OPTIONS = Object.values(AlignXBase);
+
 export const ALAGN_X_ARG_OPTIONS = Object.values(AlignX);
+
+export const ALAGN_Y_BASE_ARG_OPTIONS = Object.values(AlignYBase);
 
 export const ALAGN_Y_ARG_OPTIONS = Object.values(AlignY);
 
@@ -25,6 +36,17 @@ export const DIRECTION_ARG_TYPES: ArgTypes<DirectionOptions> = {
   direction: {
     control: 'select',
     options: DIRECTION_ARG_OPTIONS,
+  },
+};
+
+export const ALIGN_BASE_ARG_TYPES: ArgTypes<AlignOptions> = {
+  alignX: {
+    control: 'select',
+    options: ALAGN_X_BASE_ARG_OPTIONS,
+  },
+  alignY: {
+    control: 'select',
+    options: ALAGN_Y_BASE_ARG_OPTIONS,
   },
 };
 
@@ -199,6 +221,13 @@ export const ARG_TYPES = {
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
+  layer: {
+    ...ALIGN_BASE_ARG_TYPES,
+    ...ADJUST_ARG_TYPES,
+    ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
+    ...DEBUG_ARG_TYPES,
+  },
 } as const;
 
 export const DIRECTION_OPTIONS: DirectionOptions = {
@@ -304,6 +333,13 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
+    ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
+    ...DEBUG_PARAMS,
+  },
+  layer: {
+    ...ALIGN_OPTIONS,
+    ...ADJUST_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
