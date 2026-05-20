@@ -302,6 +302,16 @@ export const clsLayoutChildCountX = 'nws-layout-childCountX';
 export const clsLayoutChildCountY = 'nws-layout-childCountY';
 
 /**
+ * 横方向のテンプレート
+ */
+export const clsLayoutTemplateX = 'nws-layout-templateX';
+
+/**
+ * 縦方向のテンプレート
+ */
+export const clsLayoutTemplateY = 'nws-layout-templateY';
+
+/**
  * 変数\
  * 間隔: 横方向
  */
@@ -312,18 +322,6 @@ export const varLayoutGapX = '--nws-layout-gapX';
  * 間隔: 縦方向
  */
 export const varLayoutGapY = '--nws-layout-gapY';
-
-/**
- * 変数\
- * 子要素の横方向の数
- */
-export const varLayoutChildCountX = '--nws-layout-childCountX';
-
-/**
- * 変数\
- * 子要素の縦方向の数
- */
-export const varLayoutChildCountY = '--nws-layout-childCountY';
 
 /**
  * 変数\
@@ -345,6 +343,18 @@ export const varLayoutChildRatio = '--nws-layout-childRatio';
 
 /**
  * 変数\
+ * 子要素の横方向の数
+ */
+export const varLayoutChildCountX = '--nws-layout-childCountX';
+
+/**
+ * 変数\
+ * 子要素の縦方向の数
+ */
+export const varLayoutChildCountY = '--nws-layout-childCountY';
+
+/**
+ * 変数\
  * 横方向のテンプレート
  */
 export const varLayoutTemplateX = '--nws-layout-templateX';
@@ -354,15 +364,3 @@ export const varLayoutTemplateX = '--nws-layout-templateX';
  * 縦方向のテンプレート
  */
 export const varLayoutTemplateY = '--nws-layout-templateY';
-
-/**
- * 変数\
- * 横方向のオートトラック
- */
-export const varLayoutAutoTracX = '--nws-layout-autoTracX';
-
-/**
- * 変数\
- * 縦方向のオートトラック
- */
-export const varLayoutAutoTracY = '--nws-layout-autoTracY';

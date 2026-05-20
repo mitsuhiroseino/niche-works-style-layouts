@@ -1,13 +1,6 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import clsx from 'clsx';
-import {
-  clsLayoutAdjust,
-  clsLayoutAlign,
-  clsLayoutChildSize,
-  clsLayoutDirection,
-  cssLayoutAxisSizeProp,
-  varLayoutChildSize,
-} from '../_constants';
+import { clsLayout, varLayout } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyGap from '../_internal/applyGap';
 import hasValue from '../_internal/hasValue';
@@ -51,9 +44,9 @@ const stack: StyleLayout<StackLayoutOptions> = (options = {}) => {
     // 基本的なクラス
     className: clsx(
       clsLayoutStack,
-      clsLayoutDirection[direction],
-      clsLayoutAlign.x[alignX],
-      clsLayoutAlign.y[alignY],
+      clsLayout.direction[direction],
+      clsLayout.align.x[alignX],
+      clsLayout.align.y[alignY],
     ),
     style: {},
   };
@@ -100,12 +93,15 @@ function _getStackMainAxisStyle(
   childSize: number,
 ): StyleLayoutResult {
   const result: StyleLayoutResult = {
-    className: clsx(clsLayoutAlign[axis][align], clsLayoutAdjust[axis][adjust]),
+    className: clsx(
+      clsLayout.align[axis][align],
+      clsLayout.adjust[axis][adjust],
+    ),
   };
   if (hasValue(childSize)) {
     // 高さ or 幅の指定あり
-    result.className = clsx(result.className, clsLayoutChildSize[axis]);
-    result.style = { [varLayoutChildSize[axis]]: unit(childSize) };
+    result.className = clsx(result.className, clsLayout.childSize[axis]);
+    result.style = { [varLayout.childSize[axis]]: unit(childSize) };
   }
 
   return result;
@@ -129,44 +125,42 @@ function _getStackClossAxisStyle(
     // fit
     return {
       className: clsx(
-        clsLayoutAlign[axis][align],
-        clsLayoutAdjust[axis][adjust],
+        clsLayout.align[axis][align],
+        clsLayout.adjust[axis][adjust],
       ),
       style: {
-        [`min-${cssLayoutAxisSizeProp[axis]}`]: '100%',
-        [varLayoutChildSize[axis]]: `min(0, 100%)`,
+        [varLayout.childSize[axis]]: `min(0, 100%)`,
       },
     };
   } else if (adjust === 'grow') {
     // grow
     const result: StyleLayoutResult = {
       className: clsx(
-        clsLayoutAlign[axis][align],
-        clsLayoutAdjust[axis][adjust],
+        clsLayout.align[axis][align],
+        clsLayout.adjust[axis][adjust],
       ),
-      style: {
-        [`min-${cssLayoutAxisSizeProp[axis]}`]: '100%',
-      },
+      style: {},
     };
     if (hasValue(childSize)) {
       // 高さ or 幅の指定あり
-      result.className = clsx(result.className, clsLayoutChildSize[axis]);
-      result.style[varLayoutChildSize[axis]] = unit(childSize);
+      result.className = clsx(result.className, clsLayout.childSize[axis]);
+      result.style[varLayout.childSize[axis]] = unit(childSize);
     }
     return result;
   } else if (adjust === 'shrink') {
     // shrink
     const result: StyleLayoutResult = {
       className: clsx(
-        clsLayoutAlign[axis][align],
-        clsLayoutAdjust[axis][adjust],
+        clsLayout.align[axis][align],
+        clsLayout.adjust[axis][adjust],
       ),
+      style: {},
     };
     if (hasValue(childSize)) {
       // 高さ or 幅の指定あり
-      result.className = clsx(result.className, clsLayoutChildSize[axis]);
+      result.className = clsx(result.className, clsLayout.childSize[axis]);
       result.style = {
-        [varLayoutChildSize[axis]]: `min(${unit(childSize)}, 100%)`,
+        [varLayout.childSize[axis]]: `min(${unit(childSize)}, 100%)`,
       };
     }
     return result;
@@ -175,15 +169,18 @@ function _getStackClossAxisStyle(
     if (hasValue(childSize)) {
       // 指定のサイズ
       return {
-        className: clsx(clsLayoutAlign[axis][align], clsLayoutChildSize[axis]),
+        className: clsx(
+          clsLayout.align[axis][align],
+          clsLayout.childSize[axis],
+        ),
         style: {
-          [varLayoutChildSize[axis]]: unit(childSize),
+          [varLayout.childSize[axis]]: unit(childSize),
         },
       };
     } else {
       // 指定なし
       return {
-        className: clsx(clsLayoutAlign[axis][align]),
+        className: clsx(clsLayout.align[axis][align]),
       };
     }
   }

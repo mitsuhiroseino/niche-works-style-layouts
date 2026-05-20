@@ -1,12 +1,6 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import clsx from 'clsx';
-import {
-  clsLayoutAdjust,
-  clsLayoutAlign,
-  clsLayoutChildSize,
-  clsLayoutDirection,
-  varLayoutChildSize,
-} from '../_constants';
+import { clsLayout, varLayout } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyGap from '../_internal/applyGap';
 import hasValue from '../_internal/hasValue';
@@ -50,9 +44,9 @@ const flow: StyleLayout<FlowLayoutOptions> = (options = {}) => {
   const result: StyleLayoutResult = {
     className: clsx(
       clsLayoutFlow,
-      clsLayoutDirection[direction],
-      clsLayoutAlign.x[alignX],
-      clsLayoutAlign.y[alignY],
+      clsLayout.direction[direction],
+      clsLayout.align.x[alignX],
+      clsLayout.align.y[alignY],
     ),
     style: {},
   };
@@ -95,11 +89,14 @@ function _getFlowMainAxisStyle(
   childSize: number,
 ): StyleLayoutResult {
   const result: StyleLayoutResult = {
-    className: clsx(clsLayoutAlign[axis][align], clsLayoutAdjust[axis][adjust]),
+    className: clsx(
+      clsLayout.align[axis][align],
+      clsLayout.adjust[axis][adjust],
+    ),
   };
   if (hasValue(childSize)) {
-    result.className = clsx(result.className, clsLayoutChildSize[axis]);
-    result.style = { [varLayoutChildSize[axis]]: unit(childSize) };
+    result.className = clsx(result.className, clsLayout.childSize[axis]);
+    result.style = { [varLayout.childSize[axis]]: unit(childSize) };
   }
 
   return result;
@@ -119,14 +116,14 @@ function _getFlowCrossAxisStyle(
   // none
   if (hasValue(childSize)) {
     return {
-      className: clsx(clsLayoutAlign[axis][align], clsLayoutChildSize[axis]),
+      className: clsx(clsLayout.align[axis][align], clsLayout.childSize[axis]),
       style: {
-        [varLayoutChildSize[axis]]: unit(childSize),
+        [varLayout.childSize[axis]]: unit(childSize),
       },
     };
   } else {
     return {
-      className: clsLayoutAlign[axis][align],
+      className: clsLayout.align[axis][align],
     };
   }
 }

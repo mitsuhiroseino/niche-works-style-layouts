@@ -1,6 +1,6 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import clsx from 'clsx';
-import { clsLayoutAdjust, clsLayoutAlign } from '../_constants';
+import { clsLayout } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import { clsLayoutLayer } from '../constants';
@@ -36,10 +36,10 @@ const layer: StyleLayout<LayerLayoutOptions> = (options = {}) => {
   const result: StyleLayoutResult = {
     className: clsx(
       clsLayoutLayer,
-      clsLayoutAlign.x[alignX],
-      clsLayoutAlign.y[alignY],
-      clsLayoutAdjust.x[adjustX],
-      clsLayoutAdjust.y[adjustY],
+      clsLayout.align.x[alignX],
+      clsLayout.align.y[alignY],
+      clsLayout.adjust.x[adjustX],
+      clsLayout.adjust.y[adjustY],
     ),
     style: {},
   };

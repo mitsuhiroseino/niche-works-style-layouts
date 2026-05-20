@@ -2,7 +2,11 @@
   // 変数
   --nws-layout-gapX: 0px;
   --nws-layout-gapY: 0px;
+  --nws-layout-childSizeX: auto;
+  --nws-layout-childSizeY: auto;
   --nws-layout-childRatio: auto;
+  --nws-layout-childCountX: auto-fit;
+  --nws-layout-childCountY: auto-fit;
   --nws-layout-templateX: none;
   --nws-layout-templateY: none;
 
@@ -12,15 +16,11 @@
   &.nws-layout-direction-x {
     // 子要素を並べる向き・横並び
     grid-auto-flow: row;
-    grid-template-columns: var(--nws-layout-templateX);
-    grid-template-rows: var(--nws-layout-templateY);
   }
 
   &.nws-layout-direction-y {
     // 子要素を並べる向き・縦並び
     grid-auto-flow: column;
-    grid-template-columns: var(--nws-layout-templateX);
-    grid-template-rows: var(--nws-layout-templateY);
   }
 
   &.nws-layout-alignX-left {
@@ -71,6 +71,182 @@
   &.nws-layout-alignY-spaceEvenly {
     // 縦位置: 完全均等
     align-content: space-evenly;
+  }
+
+  // 子要素の幅調整
+  grid-template-columns: repeat(auto-fit, auto);
+  &.nws-layout-childSizeX {
+    grid-template-columns: repeat(auto-fit, var(--nws-layout-childSizeX));
+    &.nws-layout-childCountX {
+      grid-template-columns: repeat(
+        var(--nws-layout-childCountX),
+        var(--nws-layout-childSizeX)
+      );
+    }
+  }
+  &.nws-layout-childCountX {
+    grid-template-columns: repeat(var(--nws-layout-childCountX), auto);
+  }
+  &.nws-layout-templateX {
+    grid-template-columns: var(--nws-layout-templateX);
+  }
+  &.nws-layout-adjustX-fit {
+    // 子要素の幅調整: 伸ばす & 縮める
+    grid-template-columns: repeat(auto-fit, 1fr);
+    &.nws-layout-childSizeX {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(clamp(0px, 100%, var(--nws-layout-childSizeX)), 1fr)
+      );
+      &.nws-layout-childCountX {
+        grid-template-columns: repeat(
+          var(--nws-layout-childCountX),
+          minmax(
+            clamp(
+              0px,
+              calc(
+                (
+                    100% - var(--nws-layout-gapX) *
+                      (var(--nws-layout-childCountX) - 1)
+                  ) /
+                  var(--nws-layout-childCountX)
+              ),
+              var(--nws-layout-childSizeX)
+            ),
+            1fr
+          )
+        );
+      }
+    }
+    &.nws-layout-childCountX {
+      grid-template-columns: repeat(var(--nws-layout-childCountX), 1fr);
+    }
+  }
+  &.nws-layout-adjustX-grow {
+    // 子要素の幅調整: 伸ばす
+    grid-template-columns: repeat(auto-fit, 1fr);
+    &.nws-layout-childSizeX {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(var(--nws-layout-childSizeX), 1fr)
+      );
+      &.nws-layout-childCountX {
+        grid-template-columns: repeat(
+          var(--nws-layout-childCountX),
+          minmax(var(--nws-layout-childSizeX), 1fr)
+        );
+      }
+    }
+    &.nws-layout-childCountX {
+      grid-template-columns: repeat(var(--nws-layout-childCountX), 1fr);
+    }
+  }
+  &.nws-layout-adjustX-shrink {
+    // 子要素の幅調整: 縮める
+    grid-template-columns: repeat(auto-fit, auto);
+    &.nws-layout-childSizeX {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(0, var(--nws-layout-childSizeX))
+      );
+      &.nws-layout-childCountX {
+        grid-template-columns: repeat(
+          var(--nws-layout-childCountX),
+          minmax(0, var(--nws-layout-childSizeX))
+        );
+      }
+    }
+    &.nws-layout-childCountX {
+      grid-template-columns: repeat(var(--nws-layout-childCountX), auto);
+    }
+  }
+
+  // 子要素の高さ調整
+  grid-template-rows: repeat(auto-fit, auto);
+  &.nws-layout-childSizeY {
+    grid-template-rows: repeat(auto-fit, var(--nws-layout-childSizeY));
+    &.nws-layout-childCountY {
+      grid-template-rows: repeat(
+        var(--nws-layout-childCountY),
+        var(--nws-layout-childSizeY)
+      );
+    }
+  }
+  &.nws-layout-childCountY {
+    grid-template-rows: repeat(var(--nws-layout-childCountY), auto);
+  }
+  &.nws-layout-templateY {
+    grid-template-rows: var(--nws-layout-templateY);
+  }
+  &.nws-layout-adjustY-fit {
+    // 子要素の高さ調整: 伸ばす & 縮める
+    grid-template-rows: repeat(auto-fit, 1fr);
+    &.nws-layout-childSizeY {
+      grid-template-rows: repeat(
+        auto-fit,
+        minmax(clamp(0px, 100%, var(--nws-layout-childSizeY)), 1fr)
+      );
+      &.nws-layout-childCountY {
+        grid-template-rows: repeat(
+          var(--nws-layout-childCountY),
+          minmax(
+            clamp(
+              0px,
+              calc(
+                (
+                    100% - var(--nws-layout-gapY) *
+                      (var(--nws-layout-childCountY) - 1)
+                  ) /
+                  var(--nws-layout-childCountY)
+              ),
+              var(--nws-layout-childSizeY)
+            ),
+            1fr
+          )
+        );
+      }
+    }
+    &.nws-layout-childCountY {
+      grid-template-rows: repeat(var(--nws-layout-childCountY), 1fr);
+    }
+  }
+  &.nws-layout-adjustY-grow {
+    // 子要素の高さ調整: 伸ばす
+    grid-template-rows: repeat(auto-fit, 1fr);
+    &.nws-layout-childSizeY {
+      grid-template-rows: repeat(
+        auto-fit,
+        minmax(var(--nws-layout-childSizeY), 1fr)
+      );
+      &.nws-layout-childCountY {
+        grid-template-rows: repeat(
+          var(--nws-layout-childCountY),
+          minmax(var(--nws-layout-childSizeY), 1fr)
+        );
+      }
+    }
+    &.nws-layout-childCountY {
+      grid-template-rows: repeat(var(--nws-layout-childCountY), 1fr);
+    }
+  }
+  &.nws-layout-adjustY-shrink {
+    // 子要素の高さ調整: 縮める
+    grid-template-rows: repeat(auto-fit, auto);
+    &.nws-layout-childSizeY {
+      grid-template-rows: repeat(
+        auto-fit,
+        minmax(0, var(--nws-layout-childSizeY))
+      );
+      &.nws-layout-childCountY {
+        grid-template-rows: repeat(
+          var(--nws-layout-childCountY),
+          minmax(0, var(--nws-layout-childSizeY))
+        );
+      }
+    }
+    &.nws-layout-childCountY {
+      grid-template-rows: repeat(var(--nws-layout-childCountY), auto);
+    }
   }
 
   &.nws-layout-childRatio > * {

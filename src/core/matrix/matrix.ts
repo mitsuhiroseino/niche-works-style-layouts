@@ -1,15 +1,10 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import clsx from 'clsx';
-import {
-  clsLayoutAdjust,
-  clsLayoutAlign,
-  clsLayoutDirection,
-  varLayoutGap,
-  varLayoutTemplate,
-} from '../_constants';
+import { clsLayout, varLayout } from '../_constants';
+import applyChildCount from '../_internal/applyChildCount';
 import applyChildRatio from '../_internal/applyChildRatio';
+import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
-import hasValue from '../_internal/hasValue';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
 import unit from '../_internal/unit';
 import type {
@@ -67,14 +62,14 @@ const matrix: StyleLayout<MatrixLayoutOptions> = (options) => {
     },
     { overwriteNull: true },
   );
-  const result: StyleLayoutResult = {
+  let result: StyleLayoutResult = {
     className: clsx(
       clsLayoutMatrix,
-      clsLayoutDirection[direction],
-      clsLayoutAlign.x[alignX],
-      clsLayoutAlign.y[alignY],
-      clsLayoutAdjust.x[adjustX],
-      clsLayoutAdjust.y[adjustY],
+      clsLayout.direction[direction],
+      clsLayout.align.x[alignX],
+      clsLayout.align.y[alignY],
+      clsLayout.adjust.x[adjustX],
+      clsLayout.adjust.y[adjustY],
     ),
     style: {},
   };
@@ -85,11 +80,41 @@ const matrix: StyleLayout<MatrixLayoutOptions> = (options) => {
   // 子要素の縦横比
   applyChildRatio(result, childRatioX, childRatioY);
 
-  return mergeLayoutResults([
-    result,
-    _getGridTemplate('x', adjustX, childSizeX, childCountX, tracksX),
-    _getGridTemplate('y', adjustY, childSizeY, childCountY, tracksY),
-  ]);
+  let sizeX;
+  let sizeY;
+  let countX;
+  let countY;
+  let trxX;
+  let trxY;
+  if (Array.isArray(tracksX)) {
+    trxX = tracksX;
+  } else {
+    sizeX = childSizeX;
+    countX = childCountX;
+  }
+  if (Array.isArray(tracksY)) {
+    trxY = tracksY;
+  } else {
+    sizeY = childSizeY;
+    countY = childCountY;
+  }
+
+  // 子要素のサイズ
+  applyChildSize(result, sizeX, sizeY);
+
+  // 子要素の数
+  applyChildCount(result, countX, countY);
+
+  if (trxX) {
+    // 横方向のテンプレート
+    result = mergeLayoutResults([result, _getTemplate('x', adjustX, trxX)]);
+  }
+  if (trxY) {
+    // 縦方向のテンプレート
+    result = mergeLayoutResults([result, _getTemplate('y', adjustY, trxY)]);
+  }
+
+  return result;
 };
 export default matrix;
 
@@ -99,84 +124,31 @@ export default matrix;
  * @param adjust 子要素のサイズ調整
  * @param childSize 子要素のサイズ
  * @param childCount 子要素数
- * @param child 子要素数 & サイズ
+ * @param tracks 子要素数 & サイズ
  * @returns
  */
-function _getGridTemplate(
+function _getTemplate(
   axis: 'x' | 'y',
   adjust: Adjust,
-  childSize: number,
-  childCount: number,
-  child: (string | number)[],
+  tracks: (string | number)[],
 ): StyleLayoutResult {
-  let template: string;
+  // 子要素数 & サイズが指定されている場合
+  // px列の合計を計算
+  const pxTotal = tracks.reduce<number>((sum, value) => {
+    const px = _extractPx(value);
+    return px !== null ? sum + px : sum;
+  }, 0);
+  // テンプレート作成
+  const template = tracks
+    .map((value) =>
+      _applyAdjustToTrack(axis, adjust, value, tracks.length, pxTotal),
+    )
+    .join(' ');
 
-  if (Array.isArray(child)) {
-    // 子要素数 & サイズが指定されている場合
-    // px列の合計を計算
-    const pxTotal = child.reduce<number>((sum, value) => {
-      const px = _extractPx(value);
-      return px !== null ? sum + px : sum;
-    }, 0);
-    // テンプレート作成
-    template = child
-      .map((value) =>
-        _applyAdjustToTrack(axis, adjust, value, child.length, pxTotal),
-      )
-      .join(' ');
-  } else {
-    // 上記以外の場合
-    const hasChildSize = hasValue(childSize);
-    const hasCount = hasValue(childCount);
-    if (adjust === 'fit') {
-      // fit
-      if (hasChildSize && hasCount) {
-        const trackSize = `calc((100% - var(${varLayoutGap[axis]}) * (${childCount} - 1)) / ${childCount})`;
-        template = `repeat(${childCount}, minmax(clamp(0px, ${trackSize}, ${unit(childSize)}), 1fr))`;
-      } else if (hasChildSize) {
-        template = `repeat(auto-fit, minmax(clamp(0px, 100%, ${unit(childSize)}), 1fr))`;
-      } else if (hasCount) {
-        template = `repeat(${childCount}, 1fr)`;
-      } else {
-        template = 'repeat(auto-fit, 1fr)';
-      }
-    } else if (adjust === 'grow') {
-      // grow
-      if (hasChildSize && hasCount) {
-        template = `repeat(${childCount}, minmax(${unit(childSize)}, 1fr))`;
-      } else if (hasChildSize) {
-        template = `repeat(auto-fit, minmax(${unit(childSize)}, 1fr))`;
-      } else if (hasCount) {
-        template = `repeat(${childCount}, 1fr)`;
-      } else {
-        template = 'repeat(auto-fit, 1fr)';
-      }
-    } else if (adjust === 'shrink') {
-      // shrink
-      if (hasChildSize && hasCount) {
-        template = `repeat(${childCount}, minmax(0, ${unit(childSize)}))`;
-      } else if (hasChildSize) {
-        template = `repeat(auto-fit, minmax(0, ${unit(childSize)}))`;
-      } else if (hasCount) {
-        template = `repeat(${childCount}, auto)`;
-      } else {
-        template = 'repeat(auto-fit, auto)';
-      }
-    } else {
-      // none
-      if (hasChildSize && hasCount) {
-        template = `repeat(${childCount}, ${unit(childSize)})`;
-      } else if (hasChildSize) {
-        template = `repeat(auto-fit, ${unit(childSize)})`;
-      } else if (hasCount) {
-        template = `repeat(${childCount}, auto)`;
-      } else {
-        template = 'repeat(auto-fit, auto)';
-      }
-    }
-  }
-
-  return { style: { [varLayoutTemplate[axis]]: template } };
+  return {
+    className: clsLayout.template[axis],
+    style: { [varLayout.template[axis]]: template },
+  };
 }
 
 /**
@@ -199,20 +171,20 @@ function _applyAdjustToTrack(
   if (adjust === 'fit') {
     // fit
     if (isPx && pxTotal > 0) {
-      const trackSize = `calc((100% - var(${varLayoutGap[axis]}) * (${childCount} - 1)) * ${pxValue} / ${pxTotal})`;
+      const trackSize = `calc((100% - var(${varLayout.gap[axis]}) * ${childCount - 1}) * ${pxValue} / ${pxTotal})`;
       return `minmax(0, max(${trackSize}, ${childSize}))`;
     }
     return isFr ? childSize : `minmax(0, ${childSize})`;
   } else if (adjust === 'grow') {
     // grow
     if (isPx && pxTotal > 0) {
-      return `minmax(${childSize}, calc(${pxValue} / ${pxTotal} * (100% - var(${varLayoutGap[axis]}) * (${childCount} - 1))))`;
+      return `minmax(${childSize}, calc(${pxValue} / ${pxTotal} * (100% - var(${varLayout.gap[axis]}) * ${childCount - 1})))`;
     }
     return isFr ? childSize : `minmax(${childSize}, 1fr)`;
   } else if (adjust === 'shrink') {
     // shrink
     if (isPx && pxTotal > 0) {
-      const trackSize = `calc((100% - var(${varLayoutGap[axis]}) * (${childCount} - 1)) * ${pxValue} / ${pxTotal})`;
+      const trackSize = `calc((100% - var(${varLayout.gap[axis]}) * ${childCount - 1}) * ${pxValue} / ${pxTotal})`;
       return `minmax(0, min(${trackSize}, ${childSize}))`;
     }
     return isFr ? childSize : `minmax(0, ${childSize})`;

@@ -47,15 +47,17 @@
     height: var(--nws-layout-childSizeY);
   }
 
-  &.nws-layout-adjustX-fit > * {
-    // 子要素の幅調整: 伸ばす & 縮める
+  // 子要素の幅調整: 伸ばす & 縮める / 伸ばす 共通のデフォルト
+  &.nws-layout-adjustX-fit > *,
+  &.nws-layout-adjustX-grow > * {
     justify-self: stretch;
     width: auto;
   }
+  &.nws-layout-adjustX-fit > * {
+    // 子要素の幅調整: 伸ばす & 縮める
+  }
   &.nws-layout-adjustX-grow > * {
     // 子要素の幅調整: 伸ばす
-    justify-self: stretch;
-    width: auto;
     min-width: var(--nws-layout-childSizeX);
   }
   &.nws-layout-adjustX-shrink > * {
@@ -65,15 +67,17 @@
     max-width: 100%;
   }
 
-  &.nws-layout-adjustY-fit > * {
-    // 子要素の高さ調整: 伸ばす & 縮める
+  // 子要素の高さ調整: 伸ばす & 縮める / 伸ばす 共通のデフォルト
+  &.nws-layout-adjustY-fit > *,
+  &.nws-layout-adjustY-grow > * {
     align-self: stretch;
     height: auto;
   }
+  &.nws-layout-adjustY-fit > * {
+    // 子要素の高さ調整: 伸ばす & 縮める
+  }
   &.nws-layout-adjustY-grow > * {
     // 子要素の高さ調整: 伸ばす
-    align-self: stretch;
-    height: auto;
     min-height: var(--nws-layout-childSizeY);
   }
   &.nws-layout-adjustY-shrink > * {

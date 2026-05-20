@@ -1,6 +1,6 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import clsx from 'clsx';
-import { clsLayoutAdjust, clsLayoutDirection } from '../_constants';
+import { clsLayout } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
@@ -36,9 +36,9 @@ const center: StyleLayout<CenterLayoutOptions> = (options = {}) => {
   const result: StyleLayoutResult = {
     className: clsx(
       clsLayoutCenter,
-      clsLayoutDirection[direction],
-      clsLayoutAdjust.x[adjustX],
-      clsLayoutAdjust.y[adjustY],
+      clsLayout.direction[direction],
+      clsLayout.adjust.x[adjustX],
+      clsLayout.adjust.y[adjustY],
     ),
     style: {},
   };

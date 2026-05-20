@@ -1,10 +1,6 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import clsx from 'clsx';
-import {
-  clsLayoutAdjust,
-  clsLayoutAlign,
-  clsLayoutDirection,
-} from '../_constants';
+import { clsLayout } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
@@ -45,11 +41,11 @@ const balance: StyleLayout<BalanceLayoutOptions> = (options = {}) => {
   const result: StyleLayoutResult = {
     className: clsx(
       clsLayoutBalance,
-      clsLayoutDirection[direction],
-      clsLayoutAlign.x[alignX],
-      clsLayoutAlign.y[alignY],
-      clsLayoutAdjust.x[adjustX],
-      clsLayoutAdjust.y[adjustY],
+      clsLayout.direction[direction],
+      clsLayout.align.x[alignX],
+      clsLayout.align.y[alignY],
+      clsLayout.adjust.x[adjustX],
+      clsLayout.adjust.y[adjustY],
     ),
     style: {},
   };
