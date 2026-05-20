@@ -163,7 +163,7 @@ export const DEBUG_ARG_TYPES: ArgTypes<DebugOptions> = {
 };
 
 export const ARG_TYPES = {
-  balance: {
+  stack: {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
@@ -182,6 +182,15 @@ export const ARG_TYPES = {
     ...CHILD_COUNT_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
+  tile: {
+    ...DIRECTION_ARG_TYPES,
+    ...ALIGN_ARG_TYPES,
+    ...ADJUST_ARG_TYPES,
+    ...GAP_ARG_TYPES,
+    ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
+    ...DEBUG_ARG_TYPES,
+  },
   matrix: {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
@@ -193,26 +202,20 @@ export const ARG_TYPES = {
     ...TRACKS_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
-  pack: {
+  center: {
     ...DIRECTION_ARG_TYPES,
-    ...GAP_ARG_TYPES,
-    ...DEBUG_ARG_TYPES,
-  },
-  pin: {
-    ...CHILD_SIZE_ARG_TYPES,
-    ...CHILD_RATIO_ARG_TYPES,
-    ...DEBUG_ARG_TYPES,
-  },
-  stack: {
-    ...DIRECTION_ARG_TYPES,
-    ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
     ...GAP_ARG_TYPES,
     ...CHILD_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
   },
-  tile: {
+  pack: {
+    ...DIRECTION_ARG_TYPES,
+    ...GAP_ARG_TYPES,
+    ...DEBUG_ARG_TYPES,
+  },
+  balance: {
     ...DIRECTION_ARG_TYPES,
     ...ALIGN_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
@@ -224,6 +227,11 @@ export const ARG_TYPES = {
   layer: {
     ...ALIGN_BASE_ARG_TYPES,
     ...ADJUST_ARG_TYPES,
+    ...CHILD_SIZE_ARG_TYPES,
+    ...CHILD_RATIO_ARG_TYPES,
+    ...DEBUG_ARG_TYPES,
+  },
+  pin: {
     ...CHILD_SIZE_ARG_TYPES,
     ...CHILD_RATIO_ARG_TYPES,
     ...DEBUG_ARG_TYPES,
@@ -279,7 +287,7 @@ export const DEBUG_PARAMS: DebugOptions = {
 };
 
 export const ARGS: Record<string, Record<string, any>> = {
-  balance: {
+  stack: {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
@@ -289,6 +297,15 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...DEBUG_PARAMS,
   },
   flow: {
+    ...DIRECTION_OPTIONS,
+    ...ALIGN_OPTIONS,
+    ...ADJUST_OPTIONS,
+    ...GAP_OPTIONS,
+    ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
+    ...DEBUG_PARAMS,
+  },
+  tile: {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
@@ -308,27 +325,20 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...TRACKS_OPTIONS,
     ...DEBUG_PARAMS,
   },
-  pin: {
-    ...CHILD_SIZE_OPTIONS,
-    ...CHILD_RATIO_OPTIONS,
-    ...DEBUG_PARAMS,
-    posType: 'static',
-  },
-  pack: {
+  center: {
     ...DIRECTION_OPTIONS,
-    ...GAP_OPTIONS,
-    ...DEBUG_PARAMS,
-  },
-  stack: {
-    ...DIRECTION_OPTIONS,
-    ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
     ...GAP_OPTIONS,
     ...CHILD_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
   },
-  tile: {
+  pack: {
+    ...DIRECTION_OPTIONS,
+    ...GAP_OPTIONS,
+    ...DEBUG_PARAMS,
+  },
+  balance: {
     ...DIRECTION_OPTIONS,
     ...ALIGN_OPTIONS,
     ...ADJUST_OPTIONS,
@@ -343,6 +353,12 @@ export const ARGS: Record<string, Record<string, any>> = {
     ...CHILD_SIZE_OPTIONS,
     ...CHILD_RATIO_OPTIONS,
     ...DEBUG_PARAMS,
+  },
+  pin: {
+    ...CHILD_SIZE_OPTIONS,
+    ...CHILD_RATIO_OPTIONS,
+    ...DEBUG_PARAMS,
+    posType: 'static',
   },
 };
 

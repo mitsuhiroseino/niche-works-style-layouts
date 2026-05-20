@@ -147,6 +147,11 @@
     }
   }
 
+  &.nws-layout-childRatio > * {
+    // 縦横比
+    aspect-ratio: var(--nws-layout-childRatio);
+  }
+
   &.nws-layout-gapX {
     // 横方向の間隔
     column-gap: var(--nws-layout-gapX);
@@ -155,10 +160,5 @@
   &.nws-layout-gapY {
     // 縦方向の間隔
     row-gap: var(--nws-layout-gapY);
-  }
-
-  &.nws-layout-childRatio > * {
-    // 縦横比
-    aspect-ratio: var(--nws-layout-childRatio);
   }
 }

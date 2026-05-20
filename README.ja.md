@@ -147,6 +147,36 @@ matrix({
 });
 ```
 
+### `center`
+
+子要素を親要素の中央に配置します。\
+親要素が子要素より小さくなった場合でも、先頭の子要素が親要素の外にはみ出さずに表示されます。
+
+```ts
+import { center } from '@niche-works/style-layouts';
+
+const { className, style } = center({
+  direction: 'x',
+  adjustX: 'shrink',
+  gap: 8,
+  childSizeY: 200,
+  childRatioX: 1.6,
+});
+```
+
+### `pack`
+
+子要素を親要素のサイズに合わせて均等にサイズ調整し並べます。
+
+```ts
+import { pack } from '@niche-works/style-layouts';
+
+const { className, style } = pack({
+  direction: 'x',
+  gap: 8,
+});
+```
+
 ### `balance`
 
 子要素を一列に均等に並べます。
@@ -165,16 +195,20 @@ const { className, style } = balance({
 });
 ```
 
-### `pack`
+### `layer`
 
-子要素を親要素のサイズに合わせて均等にサイズ調整し並べます。
+子要素を重ねて全て同じ位置に配置します。
+
+> `alignX` / `alignY` に `space-between`、`space-around`、`space-evenly` は指定できません。
 
 ```ts
-import { pack } from '@niche-works/style-layouts';
+import { layer } from '@niche-works/style-layouts';
 
-const { className, style } = pack({
-  direction: 'x',
-  gap: 8,
+const { className, style } = layer({
+  alignX: 'center',
+  adjustX: 'shrink',
+  childSizeY: 200,
+  childRatioX: 1.6,
 });
 ```
 
@@ -195,22 +229,24 @@ const { className, style } = pin({
 
 ### レイアウト別対応表
 
-| オプション    | stack | flow | tile | matrix | balance | pack | pin |
-| ------------- | :---: | :--: | :--: | :----: | :-----: | :--: | :-: |
-| `direction`   |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
-| `alignX`      |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
-| `alignY`      |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
-| `adjustX`     |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
-| `adjustY`     |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
-| `gap`         |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
-| `gapX`        |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
-| `gapY`        |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
-| `childSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  ✓  |
-| `childSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  ✓  |
-| `childCountX` |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
-| `childCountY` |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
-| `tracksX`     |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
-| `tracksY`     |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+| オプション    | stack | flow | tile | matrix | center | pack | balance | layer | pin |
+| ------------- | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
+| `direction`   |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `alignX`      |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
+| `alignY`      |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
+| `adjustX`     |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `adjustY`     |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `gap`         |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapX`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapY`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `childSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `childSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `childRatioX` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `childRatioY` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `childCountX` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `childCountY` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksX`     |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksY`     |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
 
 ### オプション一覧
 
@@ -226,6 +262,8 @@ const { className, style } = pin({
 | `gapY?`        | `number`                 | 子要素間の余白 (px,縦方向)                       |
 | `childSizeX?`  | `number`                 | 子要素の幅 (px)                                  |
 | `childSizeY?`  | `number`                 | 子要素の高さ (px)                                |
+| `childRatioX?` | `number`                 | 子要素の幅の比                                   |
+| `childRatioY?` | `number`                 | 子要素の高さの比                                 |
 | `childCountX?` | `number`                 | 子要素の横方向の数                               |
 | `childCountY?` | `number`                 | 子要素の縦方向の数                               |
 | `tracksX?`     | `(string \| number)[]`   | 子要素の横方向の個々のサイズ                     |
@@ -272,7 +310,6 @@ const { className, style } = pin({
 type StyleLayoutResult = {
   className?: string;
   style?: {
-    [key: string]: string | number | undefined;
     [key: `--${string}`]: string | number | undefined;
   };
 };

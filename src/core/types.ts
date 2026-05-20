@@ -1,5 +1,5 @@
 import type { LooseDictionary } from '@niche-works/types';
-import type { CSSPropertiesWithVars } from './_types';
+import type { CSSCustomProperties } from './_types';
 
 /**
  * レイアウトを作る関数
@@ -20,5 +20,5 @@ export type StyleLayoutResult = {
   /**
    * スタイル
    */
-  style?: CSSPropertiesWithVars;
+  style?: CSSCustomProperties;
 };

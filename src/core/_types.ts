@@ -2,9 +2,9 @@ import type CSS from 'csstype';
 import type { Adjust, AlignX, AlignY, Direction } from './constants';
 
 /**
- * CSS変数を許容するCSSProperties
+ * CSSカスタムプロパティ(変数)
  */
-export type CSSPropertiesWithVars = CSSProperties & {
+export type CSSCustomProperties = {
   [key: `--${string}`]: string | number | undefined;
 };
 

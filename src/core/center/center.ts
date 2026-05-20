@@ -1,25 +1,26 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
 import clsx from 'clsx';
-import { clsLayoutAdjust, clsLayoutAlign } from '../_constants';
+import { clsLayoutAdjust, clsLayoutDirection } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
-import { clsLayoutLayer } from '../constants';
+import applyGap from '../_internal/applyGap';
+import { clsLayoutCenter } from '../constants';
 import type { StyleLayout, StyleLayoutResult } from '../types';
-import type { LayerLayoutOptions } from './types';
+import type { CenterLayoutOptions } from './types';
 
 /**
- * layerレイアウト
+ * centerレイアウト
  *
- * - 子要素を重ねて配置する
- * - alignX / alignY で重なる位置を制御する
- * - 子要素の重なり順はDOM順に従う
+ * - 子要素を中央に配置する
  */
-const layer: StyleLayout<LayerLayoutOptions> = (options = {}) => {
+const center: StyleLayout<CenterLayoutOptions> = (options = {}) => {
   const {
-    alignX,
-    alignY,
+    direction,
     adjustX,
     adjustY,
+    gap,
+    gapX,
+    gapY,
     childSizeX,
     childSizeY,
     childRatioX,
@@ -27,22 +28,23 @@ const layer: StyleLayout<LayerLayoutOptions> = (options = {}) => {
   } = maybeDefault(
     options,
     {
-      alignX: 'left',
-      alignY: 'top',
+      direction: 'x',
     },
     { overwriteNull: true },
   );
 
   const result: StyleLayoutResult = {
     className: clsx(
-      clsLayoutLayer,
-      clsLayoutAlign.x[alignX],
-      clsLayoutAlign.y[alignY],
+      clsLayoutCenter,
+      clsLayoutDirection[direction],
       clsLayoutAdjust.x[adjustX],
       clsLayoutAdjust.y[adjustY],
     ),
     style: {},
   };
+
+  // 間隔の適用
+  applyGap(result, gap, gapX, gapY);
 
   // 子要素のサイズ
   applyChildSize(result, childSizeX, childSizeY);
@@ -52,4 +54,4 @@ const layer: StyleLayout<LayerLayoutOptions> = (options = {}) => {
 
   return result;
 };
-export default layer;
+export default center;

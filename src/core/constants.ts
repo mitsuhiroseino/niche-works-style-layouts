@@ -117,14 +117,14 @@ export type Adjust = (typeof Adjust)[keyof typeof Adjust];
 export const clsLayoutStack = 'nws-layout-stack';
 
 /**
- * レイアウト種別: balance
- */
-export const clsLayoutBalance = 'nws-layout-balance';
-
-/**
  * レイアウト種別: flow
  */
 export const clsLayoutFlow = 'nws-layout-flow';
+
+/**
+ * レイアウト種別: tile
+ */
+export const clsLayoutTile = 'nws-layout-tile';
 
 /**
  * レイアウト種別: matrix
@@ -132,14 +132,19 @@ export const clsLayoutFlow = 'nws-layout-flow';
 export const clsLayoutMatrix = 'nws-layout-matrix';
 
 /**
+ * レイアウト種別: center
+ */
+export const clsLayoutCenter = 'nws-layout-center';
+
+/**
  * レイアウト種別: pack
  */
 export const clsLayoutPack = 'nws-layout-pack';
 
 /**
- * レイアウト種別: pin
+ * レイアウト種別: balance
  */
-export const clsLayoutPin = 'nws-layout-pin';
+export const clsLayoutBalance = 'nws-layout-balance';
 
 /**
  * レイアウト種別: layer
@@ -147,9 +152,9 @@ export const clsLayoutPin = 'nws-layout-pin';
 export const clsLayoutLayer = 'nws-layout-layer';
 
 /**
- * レイアウト種別: tile
+ * レイアウト種別: pin
  */
-export const clsLayoutTile = 'nws-layout-tile';
+export const clsLayoutPin = 'nws-layout-pin';
 
 /**
  * 整列: 横方向

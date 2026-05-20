@@ -1,0 +1,215 @@
+.nws-layout-center {
+  // 変数
+  --nws-layout-gapX: 0px;
+  --nws-layout-gapY: 0px;
+  --nws-layout-childSizeX: auto;
+  --nws-layout-childSizeY: auto;
+  --nws-layout-childRatio: auto;
+
+  // center用のスタイル
+  display: flex;
+  justify-content: safe center;
+  align-content: safe center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  & > * {
+    min-width: 0;
+    max-width: 100%;
+    min-height: 0;
+    max-height: 100%;
+    margin: 0;
+  }
+
+  &.nws-layout-direction-x {
+    // 子要素を並べる向き・横並び
+    flex-direction: row;
+
+    &.nws-layout-childSizeX > * {
+      // 子要素の幅
+      width: var(--nws-layout-childSizeX);
+      flex-basis: var(--nws-layout-childSizeX);
+    }
+
+    & > * {
+      // 子要素の幅調整
+      max-width: none;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+    &.nws-layout-adjustX-fit {
+      // 子要素の幅調整: 伸ばす & 縮める
+      justify-content: stretch;
+      & > * {
+        width: 100%;
+        max-width: none;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 0%;
+      }
+    }
+    &.nws-layout-adjustX-grow {
+      // 子要素の幅調整: 伸ばす
+      justify-content: stretch;
+      & > * {
+        width: 100%;
+        min-width: var(--nws-layout-childSizeX);
+        max-width: none;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: var(--nws-layout-childSizeX);
+      }
+    }
+    &.nws-layout-adjustX-shrink {
+      // 子要素の幅調整: 縮める
+      & > * {
+        width: var(--nws-layout-childSizeX);
+        max-width: 100%;
+        flex-grow: 0;
+        flex-shrink: 1;
+        flex-basis: var(--nws-layout-childSizeX);
+      }
+    }
+
+    &.nws-layout-childSizeY > * {
+      // 子要素の高さ
+      height: var(--nws-layout-childSizeY);
+    }
+
+    & > * {
+      // 子要素の高さ調整
+      max-height: none;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+    &.nws-layout-adjustY-fit {
+      // 子要素の高さ調整: 伸ばす & 縮める
+      align-items: stretch;
+      & > * {
+        height: 100%;
+        max-height: none;
+      }
+    }
+    &.nws-layout-adjustY-grow {
+      // 子要素の高さ調整: 伸ばす
+      align-items: stretch;
+      & > * {
+        height: 100%;
+        min-height: var(--nws-layout-childSizeY);
+        max-height: none;
+      }
+    }
+    &.nws-layout-adjustY-shrink {
+      // 子要素の高さ調整: 縮める
+      & > * {
+        height: var(--nws-layout-childSizeY);
+        max-height: 100%;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+    }
+  }
+
+  &.nws-layout-direction-y {
+    // 子要素を並べる向き・縦並び
+    flex-direction: column;
+
+    &.nws-layout-childSizeX > * {
+      // 子要素の幅
+      width: var(--nws-layout-childSizeX);
+    }
+
+    & > * {
+      // 子要素の幅調整
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &.nws-layout-adjustX-fit {
+      // 子要素の幅調整: 伸ばす & 縮める
+      align-items: stretch;
+      & > * {
+        width: 100%;
+        max-width: none;
+      }
+    }
+    &.nws-layout-adjustX-grow {
+      // 子要素の幅調整: 伸ばす
+      align-items: stretch;
+      & > * {
+        width: 100%;
+        max-width: none;
+        min-width: var(--nws-layout-childSizeX);
+      }
+    }
+    &.nws-layout-adjustX-shrink {
+      // 子要素の幅調整: 縮める
+      & > * {
+        width: var(--nws-layout-childSizeX);
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    &.nws-layout-childSizeY > * {
+      // 子要素の高さ
+      height: var(--nws-layout-childSizeY);
+      flex-basis: var(--nws-layout-childSizeY);
+    }
+
+    & > * {
+      // 子要素の高さ調整
+      max-height: none;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+    &.nws-layout-adjustY-fit {
+      // 子要素の高さ調整: 伸ばす & 縮める
+      justify-content: stretch;
+      & > * {
+        height: 100%;
+        max-height: none;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 0%;
+      }
+    }
+    &.nws-layout-adjustY-grow {
+      // 子要素の高さ調整: 伸ばす
+      justify-content: stretch;
+      & > * {
+        height: 100%;
+        min-height: var(--nws-layout-childSizeY);
+        max-height: none;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: var(--nws-layout-childSizeY);
+      }
+    }
+    &.nws-layout-adjustY-shrink {
+      // 子要素の高さ調整: 縮める
+      & > * {
+        height: var(--nws-layout-childSizeY);
+        max-height: 100%;
+        flex-grow: 0;
+        flex-shrink: 1;
+        flex-basis: var(--nws-layout-childSizeY);
+      }
+    }
+  }
+
+  &.nws-layout-childRatio > * {
+    // 縦横比
+    aspect-ratio: var(--nws-layout-childRatio);
+  }
+
+  &.nws-layout-gapX {
+    // 横方向の間隔
+    column-gap: var(--nws-layout-gapX);
+  }
+
+  &.nws-layout-gapY {
+    // 縦方向の間隔
+    row-gap: var(--nws-layout-gapY);
+  }
+}

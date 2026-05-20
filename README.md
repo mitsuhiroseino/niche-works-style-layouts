@@ -147,6 +147,36 @@ matrix({
 });
 ```
 
+### `center`
+
+Places child elements at the center of the container.
+Even when the container becomes smaller than the child elements, the first child element remains visible within the container without overflow.
+
+```ts
+import { center } from '@niche-works/style-layouts';
+
+const { className, style } = center({
+  direction: 'x',
+  adjustX: 'shrink',
+  gap: 8,
+  childSizeY: 200,
+  childRatioX: 1.6,
+});
+```
+
+### `pack`
+
+Sizes child elements equally to fill the container.
+
+```ts
+import { pack } from '@niche-works/style-layouts';
+
+const { className, style } = pack({
+  direction: 'x',
+  gap: 8,
+});
+```
+
 ### `balance`
 
 Arranges child elements evenly in a single row or column.
@@ -165,16 +195,20 @@ const { className, style } = balance({
 });
 ```
 
-### `pack`
+### `layer`
 
-Sizes child elements equally to fill the container.
+Stacks child elements on top of each other at the same position.
+
+> `space-between`, `space-around`, and `space-evenly` cannot be specified for `alignX` / `alignY`.
 
 ```ts
-import { pack } from '@niche-works/style-layouts';
+import { layer } from '@niche-works/style-layouts';
 
-const { className, style } = pack({
-  direction: 'x',
-  gap: 8,
+const { className, style } = layer({
+  alignX: 'center',
+  adjustX: 'shrink',
+  childSizeY: 200,
+  childRatioX: 1.6,
 });
 ```
 
@@ -195,22 +229,24 @@ const { className, style } = pin({
 
 ### Options by Layout
 
-| Option        | stack | flow | tile | matrix | balance | pack | pin |
-| ------------- | :---: | :--: | :--: | :----: | :-----: | :--: | :-: |
-| `direction`   |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
-| `alignX`      |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
-| `alignY`      |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
-| `adjustX`     |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
-| `adjustY`     |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  —  |
-| `gap`         |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
-| `gapX`        |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
-| `gapY`        |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  ✓   |  —  |
-| `childSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  ✓  |
-| `childSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |    ✓    |  —   |  ✓  |
-| `childCountX` |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
-| `childCountY` |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
-| `tracksX`     |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
-| `tracksY`     |   —   |  —   |  —   |   ✓    |    —    |  —   |  —  |
+| Option        | stack | flow | tile | matrix | center | pack | balance | layer | pin |
+| ------------- | :---: | :--: | :--: | :----: | :----: | :--: | :-----: | :---: | :-: |
+| `direction`   |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `alignX`      |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
+| `alignY`      |   ✓   |  ✓   |  ✓   |   ✓    |   —    |  —   |    ✓    |   ✓   |  —  |
+| `adjustX`     |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `adjustY`     |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  —  |
+| `gap`         |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapX`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `gapY`        |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  ✓   |    ✓    |   —   |  —  |
+| `childSizeX`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `childSizeY`  |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `childRatioX` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `childRatioY` |   ✓   |  ✓   |  ✓   |   ✓    |   ✓    |  —   |    ✓    |   ✓   |  ✓  |
+| `childCountX` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `childCountY` |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksX`     |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
+| `tracksY`     |   —   |  —   |  —   |   ✓    |   —    |  —   |    —    |   —   |  —  |
 
 ### Options Reference
 
@@ -221,11 +257,13 @@ const { className, style } = pin({
 | `alignY?`      | [`AlignY`](#aligny-values) | Vertical alignment of children (default: `'top'`)          |
 | `adjustX?`     | [`Adjust`](#adjust-values) | Horizontal size adjustment of children (default: `'none'`) |
 | `adjustY?`     | [`Adjust`](#adjust-values) | Vertical size adjustment of children (default: `'none'`)   |
-| `gap?`         | `number`                   | Gap between children (px, both axes)                       |
-| `gapX?`        | `number`                   | Gap between children (px, horizontal)                      |
-| `gapY?`        | `number`                   | Gap between children (px, vertical)                        |
-| `childSizeX?`  | `number`                   | Width of child elements (px)                               |
-| `childSizeY?`  | `number`                   | Height of child elements (px)                              |
+| `gap?`         | `number`                   | Gap between children in px (both axes)                     |
+| `gapX?`        | `number`                   | Gap between children in px (horizontal)                    |
+| `gapY?`        | `number`                   | Gap between children in px (vertical)                      |
+| `childSizeX?`  | `number`                   | Width of child elements in px                              |
+| `childSizeY?`  | `number`                   | Height of child elements in px                             |
+| `childRatioX?` | `number`                   | Horizontal ratio of child elements                         |
+| `childRatioY?` | `number`                   | Vertical ratio of child elements                           |
 | `childCountX?` | `number`                   | Number of children in horizontal direction                 |
 | `childCountY?` | `number`                   | Number of children in vertical direction                   |
 | `tracksX?`     | `(string \| number)[]`     | Individual sizes of children (horizontal)                  |
@@ -272,7 +310,6 @@ All layout functions return a `StyleLayoutResult`:
 type StyleLayoutResult = {
   className?: string;
   style?: {
-    [key: string]: string | number | undefined;
     [key: `--${string}`]: string | number | undefined;
   };
 };
