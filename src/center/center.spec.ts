@@ -1,8 +1,7 @@
-// tests/center/center.spec.ts
 import { expect, test, type Page } from '@playwright/test';
 
 const STORY_URL = (storyId: string) =>
-  `/iframe.html?id=test-center--${storyId}&viewMode=story`;
+  `/iframe.html?id=spec-center--${storyId}&viewMode=story`;
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
@@ -52,6 +51,8 @@ const getContainerRect = (page: Page) =>
     };
   });
 
+// ===== direction:x センタリング =====
+
 test.describe('center - direction:x センタリング', () => {
   test('子要素グループが横方向で中央揃えされる', async ({ page }) => {
     await page.setViewportSize({ width: CHILDREN_SIZE + 300, height: 600 });
@@ -75,6 +76,8 @@ test.describe('center - direction:x センタリング', () => {
     });
   });
 });
+
+// ===== direction:x 主軸(adjustX) =====
 
 test.describe('center - direction:x 主軸(adjustX)', () => {
   test.describe('grow', () => {
@@ -142,6 +145,8 @@ test.describe('center - direction:x 主軸(adjustX)', () => {
   });
 });
 
+// ===== direction:x 交差軸(adjustY) =====
+
 test.describe('center - direction:x 交差軸(adjustY)', () => {
   test.describe('grow', () => {
     test('親高さ > 子の自然な高さ: 親高さに合わせて伸びる', async ({
@@ -164,7 +169,9 @@ test.describe('center - direction:x 交差軸(adjustY)', () => {
       heights.forEach((h) => expect(h).toBeLessThanOrEqual(CHILD_SIZE));
     });
 
-    test('親高さ > childSize: childSizeのまま（伸びない）', async ({ page }) => {
+    test('親高さ > childSize: childSizeのまま（伸びない）', async ({
+      page,
+    }) => {
       await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 200 });
       await gotoStory(page, 'direction-x-adjust-y-shrink');
       const heights = await getChildHeights(page);
@@ -193,6 +200,8 @@ test.describe('center - direction:x 交差軸(adjustY)', () => {
   });
 });
 
+// ===== direction:y センタリング =====
+
 test.describe('center - direction:y センタリング', () => {
   test('子要素グループが縦方向で中央揃えされる', async ({ page }) => {
     await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 300 });
@@ -217,7 +226,9 @@ test.describe('center - direction:y センタリング', () => {
   });
 });
 
-test.describe('center - direction:y 主軸(adjustY) 代表パターン', () => {
+// ===== direction:y 主軸(adjustY) =====
+
+test.describe('center - direction:y 主軸(adjustY)', () => {
   test.describe('grow', () => {
     test('親高さ > childSize: childSizeより伸びる', async ({ page }) => {
       await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 200 });
@@ -226,7 +237,9 @@ test.describe('center - direction:y 主軸(adjustY) 代表パターン', () => {
       heights.forEach((h) => expect(h).toBeGreaterThanOrEqual(CHILD_SIZE));
     });
 
-    test('親高さ < childSize: childSizeのまま（縮まない）', async ({ page }) => {
+    test('親高さ < childSize: childSizeのまま（縮まない）', async ({
+      page,
+    }) => {
       await page.setViewportSize({ width: 800, height: CHILDREN_SIZE - 50 });
       await gotoStory(page, 'direction-y-adjust-y-grow');
       const heights = await getChildHeights(page);
@@ -235,7 +248,9 @@ test.describe('center - direction:y 主軸(adjustY) 代表パターン', () => {
   });
 
   test.describe('shrink', () => {
-    test('親高さ > childSize: childSizeのまま（伸びない）', async ({ page }) => {
+    test('親高さ > childSize: childSizeのまま（伸びない）', async ({
+      page,
+    }) => {
       await page.setViewportSize({ width: 800, height: CHILDREN_SIZE + 200 });
       await gotoStory(page, 'direction-y-adjust-y-shrink');
       const heights = await getChildHeights(page);
@@ -251,6 +266,8 @@ test.describe('center - direction:y 主軸(adjustY) 代表パターン', () => {
   });
 });
 
+// ===== gapX =====
+
 test.describe('center - gapX', () => {
   test('隣接する子要素の間隔が gapX と一致する', async ({ page }) => {
     const GAP = 20;
@@ -263,6 +280,8 @@ test.describe('center - gapX', () => {
     }
   });
 });
+
+// ===== gapY =====
 
 test.describe('center - gapY', () => {
   test('隣接する子要素の間隔が gapY と一致する', async ({ page }) => {

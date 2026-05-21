@@ -2,7 +2,7 @@ import chroma from 'chroma-js';
 import type { StyleLayout } from '../../src/types';
 import assignStyle from './assignStyle';
 
-export default function createTestRenderer(layout: StyleLayout) {
+export default function createTestRenderer(layout: StyleLayout<any>) {
   return ({
     childCount = 3,
     childPositions,

@@ -7,6 +7,7 @@ export default defineConfig({
   entry: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.test.{ts,tsx}',
+    '!src/**/*.spec.{ts,tsx}',
     '!src/**/*.d.{ts,tsx}',
   ],
   format: ['esm', 'cjs'],
@@ -52,6 +53,10 @@ export default defineConfig({
           './core/constants': {
             import: './core/constants.mjs',
             require: './core/constants.cjs',
+          },
+          './helpers/*': {
+            import: './helpers/*.mjs',
+            require: './helpers/*.cjs',
           },
           './core/styles.css': './core/styles.css',
           './core/*.css': './core/*/styles.css',

@@ -310,7 +310,7 @@ All layout functions return a `StyleLayoutResult`:
 type StyleLayoutResult = {
   className?: string;
   style?: {
-    [key: `--${string}`]: string | number | undefined;
+    [key: `--${string}`]: string | undefined;
   };
 };
 ```
@@ -319,11 +319,11 @@ type StyleLayoutResult = {
 
 This library is built on modern CSS standards and supports the following major browser versions.
 
-| Browser         |    Supported Versions    |
-| --------------- | :----------------------: |
-| Google Chrome   | 88 (January 2021) and later  |
-| Microsoft Edge  | 88 (January 2021) and later  |
-| Mozilla Firefox | 89 (June 2021) and later     |
+| Browser         | Supported Versions            |
+| --------------- | ----------------------------- |
+| Google Chrome   | 88 (January 2021) and later   |
+| Microsoft Edge  | 88 (January 2021) and later   |
+| Mozilla Firefox | 89 (June 2021) and later      |
 | Apple Safari    | 15 (September 2021) and later |
 
 ## License

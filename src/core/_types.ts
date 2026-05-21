@@ -1,14 +1,4 @@
-import type CSS from 'csstype';
 import type { Adjust, AlignX, AlignY, Direction } from './constants';
-
-/**
- * CSSカスタムプロパティ(変数)
- */
-export type CSSCustomProperties = {
-  [key: `--${string}`]: string | number | undefined;
-};
-
-export type CSSProperties = CSS.Properties<string | number>;
 
 /**
  * 子要素を並べる方向

@@ -1,6 +1,6 @@
+import { clsLayoutPin } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
-import { clsLayoutPin } from '../constants';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { PinLayoutOptions } from './types';
 

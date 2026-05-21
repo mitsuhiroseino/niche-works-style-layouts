@@ -1,10 +1,10 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
-import clsx from 'clsx';
-import { clsLayout, varLayout } from '../_constants';
+import { clsLayout, clsLayoutMatrix, varLayout } from '../_constants';
 import applyChildCount from '../_internal/applyChildCount';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
+import mergeClassName from '../_internal/mergeClassName';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
 import unit from '../_internal/unit';
 import type {
@@ -17,7 +17,7 @@ import type {
   GapOptions,
   TracksOptions,
 } from '../_types';
-import { Adjust, clsLayoutMatrix } from '../constants';
+import { Adjust } from '../constants';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { MatrixLayoutOptions } from './types';
 
@@ -34,6 +34,7 @@ type MatrixLayoutInternalOptions = DirectionOptions &
  * matrixレイアウト
  *
  * - 子要素の縦の数、横の数を基準にして格子状に配置する
+ * - 親要素のサイズが子要素に依存していないことを前提とする
  */
 const matrix: StyleLayout<MatrixLayoutOptions> = (options) => {
   const {
@@ -63,7 +64,7 @@ const matrix: StyleLayout<MatrixLayoutOptions> = (options) => {
     { overwriteNull: true },
   );
   let result: StyleLayoutResult = {
-    className: clsx(
+    className: mergeClassName(
       clsLayoutMatrix,
       clsLayout.direction[direction],
       clsLayout.align.x[alignX],

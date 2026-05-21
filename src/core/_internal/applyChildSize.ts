@@ -1,12 +1,12 @@
-import clsx from 'clsx';
 import {
   clsLayoutChildSizeX,
   clsLayoutChildSizeY,
   varLayoutChildSizeX,
   varLayoutChildSizeY,
-} from '../constants';
+} from '../_constants';
 import type { StyleLayoutResult } from '../types';
 import hasValue from './hasValue';
+import mergeClassName from './mergeClassName';
 import unit from './unit';
 
 /**
@@ -22,11 +22,11 @@ export default function applyChildSize(
 ): void {
   // 子要素のサイズ
   if (hasValue(childSizeX)) {
-    result.className = clsx(result.className, clsLayoutChildSizeX);
+    result.className = mergeClassName(result.className, clsLayoutChildSizeX);
     result.style[varLayoutChildSizeX] = unit(childSizeX);
   }
   if (hasValue(childSizeY)) {
-    result.className = clsx(result.className, clsLayoutChildSizeY);
+    result.className = mergeClassName(result.className, clsLayoutChildSizeY);
     result.style[varLayoutChildSizeY] = unit(childSizeY);
   }
 }

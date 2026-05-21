@@ -12,11 +12,41 @@
   &.nws-layout-direction-x {
     // 子要素を並べる向き・横並び
     grid-auto-flow: column;
+    // デフォルト: 列をコンテンツサイズにしてgapが実際の余白になる
+    grid-auto-columns: max-content;
+    // grow/fit: 列をautoにして伸縮させる
+    &.nws-layout-adjustX-grow,
+    &.nws-layout-adjustX-fit {
+      grid-auto-columns: auto;
+    }
+    // shrink: 列をコンテンツサイズ上限にして余白を均等分配する（縮小は可）
+    &.nws-layout-adjustX-shrink {
+      grid-auto-columns: minmax(0, max-content);
+    }
+    // childSizeあり: 常にautoにして余白を均等分配する（adjust含めて上書き）
+    &.nws-layout-childSizeX {
+      grid-auto-columns: auto;
+    }
   }
 
   &.nws-layout-direction-y {
     // 子要素を並べる向き・縦並び
     grid-auto-flow: row;
+    // デフォルト: 行をコンテンツサイズにしてgapが実際の余白になる
+    grid-auto-rows: max-content;
+    // grow/fit: 行をautoにして伸縮させる
+    &.nws-layout-adjustY-grow,
+    &.nws-layout-adjustY-fit {
+      grid-auto-rows: auto;
+    }
+    // shrink: 行をコンテンツサイズ上限にして余白を均等分配する（縮小は可）
+    &.nws-layout-adjustY-shrink {
+      grid-auto-rows: minmax(0, max-content);
+    }
+    // childSizeあり: 常にautoにして余白を均等分配する（adjust含めて上書き）
+    &.nws-layout-childSizeY {
+      grid-auto-rows: auto;
+    }
   }
 
   &.nws-layout-alignX-left {
@@ -95,12 +125,18 @@
   }
   &.nws-layout-adjustX-grow {
     // 子要素の幅調整: 伸ばす
+    & > * {
+      min-width: max-content;
+    }
     &.nws-layout-childSizeX > * {
       min-width: var(--nws-layout-childSizeX);
     }
   }
   &.nws-layout-adjustX-shrink {
     // 子要素の幅調整: 縮める
+    & > * {
+      max-width: max-content;
+    }
     &.nws-layout-childSizeX > * {
       max-width: var(--nws-layout-childSizeX);
     }
@@ -127,12 +163,18 @@
   }
   &.nws-layout-adjustY-grow {
     // 子要素の高さ調整: 伸ばす
+    &:not(.nws-layout-childSizeY) > * {
+      min-height: max-content;
+    }
     &.nws-layout-childSizeY > * {
       min-height: var(--nws-layout-childSizeY);
     }
   }
   &.nws-layout-adjustY-shrink {
     // 子要素の高さ調整: 縮める
+    &:not(.nws-layout-childSizeY) > * {
+      max-height: max-content;
+    }
     &.nws-layout-childSizeY > * {
       max-height: var(--nws-layout-childSizeY);
     }

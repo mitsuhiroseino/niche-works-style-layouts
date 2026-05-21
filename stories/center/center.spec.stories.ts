@@ -1,18 +1,29 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import stack from '../../src/stack';
+import center from '../../src/center';
 import createTestRenderer from '../_internal/createTestRenderer';
 
 const meta = {
-  title: 'test/stack',
-  render: createTestRenderer(stack),
+  title: 'spec/center',
+  render: createTestRenderer(center),
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj;
 
 const CHILD_SIZE = '200px';
+const GAP_SIZE = 20;
 
-// direction: x / 主軸adjust
+// ===== センタリング（デフォルト） =====
+
+export const DirectionXCentering: Story = {
+  args: { direction: 'x', childSizeX: CHILD_SIZE, childCount: 3 },
+};
+export const DirectionYCentering: Story = {
+  args: { direction: 'y', childSizeY: CHILD_SIZE, childCount: 3 },
+};
+
+// ===== direction:x / 主軸(adjustX) =====
+
 export const DirectionXAdjustXGrow: Story = {
   args: {
     direction: 'x',
@@ -46,7 +57,8 @@ export const DirectionXAdjustXNone: Story = {
   },
 };
 
-// direction: x / 交差軸adjust
+// ===== direction:x / 交差軸(adjustY) =====
+
 export const DirectionXAdjustYGrow: Story = {
   args: { direction: 'x', adjustY: 'grow', childCount: 3 },
 };
@@ -70,7 +82,8 @@ export const DirectionXAdjustYNone: Story = {
   },
 };
 
-// direction: y / 主軸adjust（代表のみ）
+// ===== direction:y / 主軸(adjustY) =====
+
 export const DirectionYAdjustYGrow: Story = {
   args: {
     direction: 'y',
@@ -83,6 +96,25 @@ export const DirectionYAdjustYShrink: Story = {
   args: {
     direction: 'y',
     adjustY: 'shrink',
+    childSizeY: CHILD_SIZE,
+    childCount: 3,
+  },
+};
+
+// ===== gap =====
+
+export const DirectionXGapX: Story = {
+  args: {
+    direction: 'x',
+    gapX: GAP_SIZE,
+    childSizeX: CHILD_SIZE,
+    childCount: 3,
+  },
+};
+export const DirectionYGapY: Story = {
+  args: {
+    direction: 'y',
+    gapY: GAP_SIZE,
     childSizeY: CHILD_SIZE,
     childCount: 3,
   },

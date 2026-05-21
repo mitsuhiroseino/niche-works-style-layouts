@@ -1,12 +1,12 @@
-import clsx from 'clsx';
 import {
   clsLayoutGapX,
   clsLayoutGapY,
   varLayoutGapX,
   varLayoutGapY,
-} from '../constants';
+} from '../_constants';
 import type { StyleLayoutResult } from '../types';
 import hasValue from './hasValue';
+import mergeClassName from './mergeClassName';
 import unit from './unit';
 
 /**
@@ -25,13 +25,13 @@ export default function applyGap(
   gapX = gapX ?? gap;
   if (hasValue(gapX)) {
     // 横方向のスペーシング
-    result.className = clsx(result.className, clsLayoutGapX);
+    result.className = mergeClassName(result.className, clsLayoutGapX);
     result.style[varLayoutGapX] = unit(gapX);
   }
   gapY = gapY ?? gap;
   if (hasValue(gapY)) {
     // 縦方向のスペーシング
-    result.className = clsx(result.className, clsLayoutGapY);
+    result.className = mergeClassName(result.className, clsLayoutGapY);
     result.style[varLayoutGapY] = unit(gapY);
   }
 }

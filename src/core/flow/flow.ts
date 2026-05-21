@@ -1,13 +1,12 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
-import clsx from 'clsx';
-import { clsLayout, varLayout } from '../_constants';
+import { clsLayout, clsLayoutFlow, varLayout } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyGap from '../_internal/applyGap';
 import hasValue from '../_internal/hasValue';
+import mergeClassName from '../_internal/mergeClassName';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
 import unit from '../_internal/unit';
 import type { Adjust, AlignX, AlignY } from '../constants';
-import { clsLayoutFlow } from '../constants';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { FlowLayoutOptions } from './types';
 
@@ -42,7 +41,7 @@ const flow: StyleLayout<FlowLayoutOptions> = (options = {}) => {
   );
 
   const result: StyleLayoutResult = {
-    className: clsx(
+    className: mergeClassName(
       clsLayoutFlow,
       clsLayout.direction[direction],
       clsLayout.align.x[alignX],
@@ -89,13 +88,16 @@ function _getFlowMainAxisStyle(
   childSize: number,
 ): StyleLayoutResult {
   const result: StyleLayoutResult = {
-    className: clsx(
+    className: mergeClassName(
       clsLayout.align[axis][align],
       clsLayout.adjust[axis][adjust],
     ),
   };
   if (hasValue(childSize)) {
-    result.className = clsx(result.className, clsLayout.childSize[axis]);
+    result.className = mergeClassName(
+      result.className,
+      clsLayout.childSize[axis],
+    );
     result.style = { [varLayout.childSize[axis]]: unit(childSize) };
   }
 
@@ -116,7 +118,10 @@ function _getFlowCrossAxisStyle(
   // none
   if (hasValue(childSize)) {
     return {
-      className: clsx(clsLayout.align[axis][align], clsLayout.childSize[axis]),
+      className: mergeClassName(
+        clsLayout.align[axis][align],
+        clsLayout.childSize[axis],
+      ),
       style: {
         [varLayout.childSize[axis]]: unit(childSize),
       },

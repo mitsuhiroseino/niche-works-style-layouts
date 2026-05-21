@@ -3,7 +3,7 @@ import pin from '../../src/pin';
 import createTestRenderer from '../_internal/createTestRenderer';
 
 const meta = {
-  title: 'test/pin',
+  title: 'spec/pin',
   render: createTestRenderer(pin),
 } satisfies Meta;
 
@@ -30,6 +30,20 @@ export const WithChildSize: Story = {
       { left: '0px', top: '0px' },
       { left: '150px', top: '100px' },
       { left: '300px', top: '200px' },
+    ],
+  },
+};
+
+export const WithChildRatio: Story = {
+  args: {
+    childSizeX: '100px',
+    childRatioX: 1,
+    childRatioY: 1,
+    childCount: 3,
+    childPositions: [
+      { left: '0px', top: '0px' },
+      { left: '150px', top: '0px' },
+      { left: '300px', top: '0px' },
     ],
   },
 };

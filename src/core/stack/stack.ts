@@ -1,20 +1,19 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
-import clsx from 'clsx';
-import { clsLayout, varLayout } from '../_constants';
+import { clsLayout, clsLayoutStack, varLayout } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyGap from '../_internal/applyGap';
 import hasValue from '../_internal/hasValue';
+import mergeClassName from '../_internal/mergeClassName';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
 import unit from '../_internal/unit';
 import type { Adjust, AlignX, AlignY, Direction } from '../constants';
-import { clsLayoutStack } from '../constants';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { StackLayoutOptions } from './types';
 
 /**
  * stackレイアウト
  *
- * - 子要素を並べて配置する
+ * - 子要素を一列に並べて配置する
  */
 const stack: StyleLayout<StackLayoutOptions> = (options = {}) => {
   const {
@@ -42,7 +41,7 @@ const stack: StyleLayout<StackLayoutOptions> = (options = {}) => {
 
   const result: StyleLayoutResult = {
     // 基本的なクラス
-    className: clsx(
+    className: mergeClassName(
       clsLayoutStack,
       clsLayout.direction[direction],
       clsLayout.align.x[alignX],
@@ -93,14 +92,17 @@ function _getStackMainAxisStyle(
   childSize: number,
 ): StyleLayoutResult {
   const result: StyleLayoutResult = {
-    className: clsx(
+    className: mergeClassName(
       clsLayout.align[axis][align],
       clsLayout.adjust[axis][adjust],
     ),
   };
   if (hasValue(childSize)) {
     // 高さ or 幅の指定あり
-    result.className = clsx(result.className, clsLayout.childSize[axis]);
+    result.className = mergeClassName(
+      result.className,
+      clsLayout.childSize[axis],
+    );
     result.style = { [varLayout.childSize[axis]]: unit(childSize) };
   }
 
@@ -124,7 +126,7 @@ function _getStackClossAxisStyle(
   if (adjust === 'fit') {
     // fit
     return {
-      className: clsx(
+      className: mergeClassName(
         clsLayout.align[axis][align],
         clsLayout.adjust[axis][adjust],
       ),
@@ -135,7 +137,7 @@ function _getStackClossAxisStyle(
   } else if (adjust === 'grow') {
     // grow
     const result: StyleLayoutResult = {
-      className: clsx(
+      className: mergeClassName(
         clsLayout.align[axis][align],
         clsLayout.adjust[axis][adjust],
       ),
@@ -143,14 +145,17 @@ function _getStackClossAxisStyle(
     };
     if (hasValue(childSize)) {
       // 高さ or 幅の指定あり
-      result.className = clsx(result.className, clsLayout.childSize[axis]);
+      result.className = mergeClassName(
+        result.className,
+        clsLayout.childSize[axis],
+      );
       result.style[varLayout.childSize[axis]] = unit(childSize);
     }
     return result;
   } else if (adjust === 'shrink') {
     // shrink
     const result: StyleLayoutResult = {
-      className: clsx(
+      className: mergeClassName(
         clsLayout.align[axis][align],
         clsLayout.adjust[axis][adjust],
       ),
@@ -158,7 +163,10 @@ function _getStackClossAxisStyle(
     };
     if (hasValue(childSize)) {
       // 高さ or 幅の指定あり
-      result.className = clsx(result.className, clsLayout.childSize[axis]);
+      result.className = mergeClassName(
+        result.className,
+        clsLayout.childSize[axis],
+      );
       result.style = {
         [varLayout.childSize[axis]]: `min(${unit(childSize)}, 100%)`,
       };
@@ -169,7 +177,7 @@ function _getStackClossAxisStyle(
     if (hasValue(childSize)) {
       // 指定のサイズ
       return {
-        className: clsx(
+        className: mergeClassName(
           clsLayout.align[axis][align],
           clsLayout.childSize[axis],
         ),
@@ -180,7 +188,7 @@ function _getStackClossAxisStyle(
     } else {
       // 指定なし
       return {
-        className: clsx(clsLayout.align[axis][align]),
+        className: mergeClassName(clsLayout.align[axis][align]),
       };
     }
   }

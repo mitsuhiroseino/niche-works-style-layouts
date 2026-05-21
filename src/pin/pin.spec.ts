@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 
 const STORY_URL = (storyId: string) =>
-  `/iframe.html?id=test-pin--${storyId}&viewMode=story`;
+  `/iframe.html?id=spec-pin--${storyId}&viewMode=story`;
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
@@ -14,7 +14,6 @@ const getChildRects = (page: Page) =>
       const rect = el.getBoundingClientRect();
       const parent = el.parentElement!.getBoundingClientRect();
       return {
-        // 親要素からの相対位置
         left: rect.left - parent.left,
         top: rect.top - parent.top,
         width: rect.width,
@@ -23,7 +22,9 @@ const getChildRects = (page: Page) =>
     }),
   );
 
-test.describe('pin', () => {
+// ===== 位置指定 =====
+
+test.describe('pin - 位置指定', () => {
   test('子要素が指定のtop/leftに配置される', async ({ page }) => {
     await page.setViewportSize({ width: 800, height: 600 });
     await gotoStory(page, 'default');
@@ -36,7 +37,11 @@ test.describe('pin', () => {
     expect(rects[2].left).toBeCloseTo(200, 0);
     expect(rects[2].top).toBeCloseTo(100, 0);
   });
+});
 
+// ===== childSize =====
+
+test.describe('pin - childSize', () => {
   test('childSizeX/childSizeYが指定された場合に子要素のサイズが一致する', async ({
     page,
   }) => {
@@ -63,5 +68,18 @@ test.describe('pin', () => {
     expect(rects[1].top).toBeCloseTo(100, 0);
     expect(rects[2].left).toBeCloseTo(300, 0);
     expect(rects[2].top).toBeCloseTo(200, 0);
+  });
+});
+
+// ===== childRatio =====
+
+test.describe('pin - childRatio', () => {
+  test('childRatioX=1,childRatioY=1 のとき子要素が正方形になる', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'with-child-ratio');
+    const rects = await getChildRects(page);
+    rects.forEach((r) => expect(r.height / r.width).toBeCloseTo(1, 1));
   });
 });

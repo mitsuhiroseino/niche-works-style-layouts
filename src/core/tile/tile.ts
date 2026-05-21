@@ -1,10 +1,9 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
-import clsx from 'clsx';
-import { clsLayout } from '../_constants';
+import { clsLayout, clsLayoutTile } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
-import { clsLayoutTile } from '../constants';
+import mergeClassName from '../_internal/mergeClassName';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { TileLayoutOptions } from './types';
 
@@ -39,7 +38,7 @@ const tile: StyleLayout<TileLayoutOptions> = (options = {}) => {
   );
 
   const result: StyleLayoutResult = {
-    className: clsx(
+    className: mergeClassName(
       clsLayoutTile,
       clsLayout.direction[direction],
       clsLayout.align.x[alignX],

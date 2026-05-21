@@ -1,8 +1,7 @@
-// tests/layer/layer.spec.ts
 import { expect, test, type Page } from '@playwright/test';
 
 const STORY_URL = (storyId: string) =>
-  `/iframe.html?id=test-layer--${storyId}&viewMode=story`;
+  `/iframe.html?id=spec-layer--${storyId}&viewMode=story`;
 
 const gotoStory = async (page: Page, storyId: string) => {
   await page.goto(STORY_URL(storyId));
@@ -12,17 +11,20 @@ const gotoStory = async (page: Page, storyId: string) => {
 const CHILD_SIZE = 200;
 
 const getChildRect = (page: Page) =>
-  page.locator('.nws-layout-layer > *').first().evaluate((el) => {
-    const rect = el.getBoundingClientRect();
-    return {
-      left: rect.left,
-      right: rect.right,
-      top: rect.top,
-      bottom: rect.bottom,
-      width: rect.width,
-      height: rect.height,
-    };
-  });
+  page
+    .locator('.nws-layout-layer > *')
+    .first()
+    .evaluate((el) => {
+      const rect = el.getBoundingClientRect();
+      return {
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+      };
+    });
 
 const getChildRects = (page: Page) =>
   page.locator('.nws-layout-layer > *').evaluateAll((els) =>
@@ -52,7 +54,7 @@ const getContainerRect = (page: Page) =>
     };
   });
 
-// --- 重ね合わせ ---
+// ===== 重ね合わせ =====
 
 test.describe('layer - 重ね合わせ', () => {
   test('全子要素が同じ位置に重なって配置される', async ({ page }) => {
@@ -69,7 +71,7 @@ test.describe('layer - 重ね合わせ', () => {
   });
 });
 
-// --- alignX ---
+// ===== alignX =====
 
 test.describe('layer - alignX', () => {
   test('left: 子要素が左端に配置される', async ({ page }) => {
@@ -99,7 +101,7 @@ test.describe('layer - alignX', () => {
   });
 });
 
-// --- alignY ---
+// ===== alignY =====
 
 test.describe('layer - alignY', () => {
   test('top: 子要素が上端に配置される', async ({ page }) => {
@@ -129,7 +131,7 @@ test.describe('layer - alignY', () => {
   });
 });
 
-// --- adjustX ---
+// ===== adjustX =====
 
 test.describe('layer - adjustX', () => {
   test.describe('grow', () => {
@@ -187,7 +189,7 @@ test.describe('layer - adjustX', () => {
   });
 });
 
-// --- adjustY ---
+// ===== adjustY =====
 
 test.describe('layer - adjustY', () => {
   test.describe('grow', () => {
@@ -200,7 +202,9 @@ test.describe('layer - adjustY', () => {
       expect(child.height).toBeCloseTo(container.height, 0);
     });
 
-    test('親高さ < childSize: childSizeのまま（縮まない）', async ({ page }) => {
+    test('親高さ < childSize: childSizeのまま（縮まない）', async ({
+      page,
+    }) => {
       await page.setViewportSize({ width: 800, height: 100 });
       await gotoStory(page, 'adjust-y-grow');
       const child = await getChildRect(page);
@@ -209,7 +213,9 @@ test.describe('layer - adjustY', () => {
   });
 
   test.describe('shrink', () => {
-    test('親高さ > childSize: childSizeのまま（伸びない）', async ({ page }) => {
+    test('親高さ > childSize: childSizeのまま（伸びない）', async ({
+      page,
+    }) => {
       await page.setViewportSize({ width: 800, height: 600 });
       await gotoStory(page, 'adjust-y-shrink');
       const child = await getChildRect(page);
@@ -242,5 +248,18 @@ test.describe('layer - adjustY', () => {
       const container = await getContainerRect(page);
       expect(child.height).toBeCloseTo(container.height, 0);
     });
+  });
+});
+
+// ===== childRatio =====
+
+test.describe('layer - childRatio', () => {
+  test('childRatioX=1,childRatioY=1 のとき子要素が正方形になる', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 800, height: 600 });
+    await gotoStory(page, 'child-ratio');
+    const child = await getChildRect(page);
+    expect(child.height / child.width).toBeCloseTo(1, 1);
   });
 });

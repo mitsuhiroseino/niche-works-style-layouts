@@ -1,10 +1,9 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
-import clsx from 'clsx';
-import { clsLayout } from '../_constants';
+import { clsLayout, clsLayoutBalance } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
-import { clsLayoutBalance } from '../constants';
+import mergeClassName from '../_internal/mergeClassName';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { BalanceLayoutOptions } from './types';
 
@@ -12,6 +11,8 @@ import type { BalanceLayoutOptions } from './types';
  * balanceレイアウト
  *
  * - 子要素を均等に配置する
+ * - `adjust`が効いていない場合は、子要素のサイズを維持したまま、余白を均等に配分する
+ * - `adjust`が効いている場合は、子要素のサイズを調整してコンテナを満たす
  */
 const balance: StyleLayout<BalanceLayoutOptions> = (options = {}) => {
   const {
@@ -39,7 +40,7 @@ const balance: StyleLayout<BalanceLayoutOptions> = (options = {}) => {
     },
   );
   const result: StyleLayoutResult = {
-    className: clsx(
+    className: mergeClassName(
       clsLayoutBalance,
       clsLayout.direction[direction],
       clsLayout.align.x[alignX],

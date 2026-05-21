@@ -1,7 +1,7 @@
-import clsx from 'clsx';
-import { clsLayoutChildRatio, varLayoutChildRatio } from '../constants';
+import { clsLayoutChildRatio, varLayoutChildRatio } from '../_constants';
 import type { StyleLayoutResult } from '../types';
 import hasValue from './hasValue';
+import mergeClassName from './mergeClassName';
 
 /**
  * 子要素の縦横比に関する設定の適用
@@ -16,7 +16,7 @@ export default function applyChildRatio(
 ): void {
   // 子要素の縦横比
   if (hasValue(childRatioX) || hasValue(childRatioY)) {
-    result.className = clsx(result.className, clsLayoutChildRatio);
+    result.className = mergeClassName(result.className, clsLayoutChildRatio);
     result.style[varLayoutChildRatio] =
       `${childRatioX ?? 1} / ${childRatioY ?? 1}`;
   }

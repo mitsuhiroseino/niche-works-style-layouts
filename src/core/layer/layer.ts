@@ -1,9 +1,8 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
-import clsx from 'clsx';
-import { clsLayout } from '../_constants';
+import { clsLayout, clsLayoutLayer } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
-import { clsLayoutLayer } from '../constants';
+import mergeClassName from '../_internal/mergeClassName';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { LayerLayoutOptions } from './types';
 
@@ -34,7 +33,7 @@ const layer: StyleLayout<LayerLayoutOptions> = (options = {}) => {
   );
 
   const result: StyleLayoutResult = {
-    className: clsx(
+    className: mergeClassName(
       clsLayoutLayer,
       clsLayout.align.x[alignX],
       clsLayout.align.y[alignY],

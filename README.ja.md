@@ -310,7 +310,7 @@ const { className, style } = pin({
 type StyleLayoutResult = {
   className?: string;
   style?: {
-    [key: `--${string}`]: string | number | undefined;
+    [key: `--${string}`]: string | undefined;
   };
 };
 ```
@@ -319,8 +319,8 @@ type StyleLayoutResult = {
 
 本ライブラリはモダンCSSの標準仕様を用いて設計されており、下記のメジャーなブラウザーのバージョンに対応しています。
 
-| ブラウザー      |   対応バージョン    |
-| --------------- | :-----------------: |
+| ブラウザー      | 対応バージョン      |
+| --------------- | ------------------- |
 | Google Chrome   | 88 (2021年1月) 以降 |
 | Microsoft Edge  | 88 (2021年1月) 以降 |
 | Mozilla Firefox | 89 (2021年6月) 以降 |

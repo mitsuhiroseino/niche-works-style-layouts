@@ -1,8 +1,7 @@
 import maybeDefault from '@niche-works/utils/object/maybeDefault';
-import clsx from 'clsx';
-import { clsLayout } from '../_constants';
+import { clsLayout, clsLayoutPack } from '../_constants';
 import applyGap from '../_internal/applyGap';
-import { clsLayoutPack } from '../constants';
+import mergeClassName from '../_internal/mergeClassName';
 import type { StyleLayout, StyleLayoutResult } from '../types';
 import type { PackLayoutOptions } from './types';
 
@@ -18,7 +17,7 @@ const pack: StyleLayout<PackLayoutOptions> = (options = {}) => {
     { overwriteNull: true },
   );
   const result: StyleLayoutResult = {
-    className: clsx(clsLayoutPack, clsLayout.direction[direction]),
+    className: mergeClassName(clsLayoutPack, clsLayout.direction[direction]),
     style: {},
   };
 
