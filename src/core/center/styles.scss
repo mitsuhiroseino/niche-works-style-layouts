@@ -23,9 +23,9 @@
     // 子要素を並べる向き・横並び
     flex-direction: row;
 
-    // 子要素の幅調整
     & > * {
       max-width: none;
+      max-height: none;
       flex-grow: 0;
       flex-shrink: 0;
       margin-top: auto;
@@ -37,6 +37,8 @@
         margin-right: auto;
       }
     }
+
+    // 子要素の幅調整
     &.nws-layout-childSizeX > * {
       // 子要素の幅
       width: var(--nws-layout-childSizeX);
@@ -44,7 +46,6 @@
     }
     &.nws-layout-adjustX-fit {
       // 子要素の幅調整: 伸ばす & 縮める
-      justify-content: stretch;
       & > * {
         width: 100%;
         max-width: none;
@@ -55,13 +56,11 @@
     }
     &.nws-layout-adjustX-grow {
       // 子要素の幅調整: 伸ばす
-      justify-content: stretch;
       & > * {
         width: 100%;
         min-width: var(--nws-layout-childSizeX);
         max-width: none;
         flex-grow: 1;
-        flex-shrink: 0;
         flex-basis: var(--nws-layout-childSizeX);
       }
     }
@@ -70,18 +69,12 @@
       & > * {
         width: var(--nws-layout-childSizeX);
         max-width: 100%;
-        flex-grow: 0;
         flex-shrink: 1;
         flex-basis: var(--nws-layout-childSizeX);
       }
     }
 
     // 子要素の高さ調整
-    & > * {
-      max-height: none;
-      margin-top: auto;
-      margin-bottom: auto;
-    }
     &.nws-layout-childSizeY > * {
       // 子要素の高さ
       height: var(--nws-layout-childSizeY);
@@ -134,9 +127,11 @@
     // 子要素を並べる向き・縦並び
     flex-direction: column;
 
-    // 子要素の幅調整
     & > * {
       max-width: none;
+      max-height: none;
+      flex-grow: 0;
+      flex-shrink: 0;
       margin-left: auto;
       margin-right: auto;
       &:first-child {
@@ -146,6 +141,8 @@
         margin-bottom: auto;
       }
     }
+
+    // 子要素の幅調整
     &.nws-layout-childSizeX > * {
       // 子要素の幅
       width: var(--nws-layout-childSizeX);
@@ -178,11 +175,6 @@
     }
 
     // 子要素の高さ調整
-    & > * {
-      max-height: none;
-      flex-grow: 0;
-      flex-shrink: 0;
-    }
     &.nws-layout-childSizeY > * {
       // 子要素の高さ
       height: var(--nws-layout-childSizeY);
@@ -190,7 +182,6 @@
     }
     &.nws-layout-adjustY-fit {
       // 子要素の高さ調整: 伸ばす & 縮める
-      justify-content: stretch;
       & > * {
         height: 100%;
         max-height: none;
@@ -201,13 +192,11 @@
     }
     &.nws-layout-adjustY-grow {
       // 子要素の高さ調整: 伸ばす
-      justify-content: stretch;
       & > * {
         height: 100%;
         min-height: var(--nws-layout-childSizeY);
         max-height: none;
         flex-grow: 1;
-        flex-shrink: 0;
         flex-basis: var(--nws-layout-childSizeY);
       }
     }
@@ -216,7 +205,6 @@
       & > * {
         height: var(--nws-layout-childSizeY);
         max-height: 100%;
-        flex-grow: 0;
         flex-shrink: 1;
         flex-basis: var(--nws-layout-childSizeY);
       }

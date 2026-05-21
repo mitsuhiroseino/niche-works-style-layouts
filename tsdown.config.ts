@@ -66,5 +66,20 @@ export default defineConfig({
         },
       ],
     }),
+    {
+      name: 'fix-css-cjs-extension',
+      renderChunk(code, _, options) {
+        if (options.format !== 'cjs') {
+          return null;
+        }
+        return {
+          code: code.replace(
+            /require\((['"])([^'"]*\/styles)\.cjs\1\)/g,
+            'require($1$2.css$1)',
+          ),
+          map: null,
+        };
+      },
+    },
   ],
 });

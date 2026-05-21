@@ -143,7 +143,6 @@
   }
   &.nws-layout-adjustX-shrink {
     // 子要素の幅調整: 縮める
-    grid-template-columns: repeat(auto-fit, auto);
     &.nws-layout-childSizeX {
       grid-template-columns: repeat(
         auto-fit,
@@ -231,7 +230,6 @@
   }
   &.nws-layout-adjustY-shrink {
     // 子要素の高さ調整: 縮める
-    grid-template-rows: repeat(auto-fit, auto);
     &.nws-layout-childSizeY {
       grid-template-rows: repeat(
         auto-fit,

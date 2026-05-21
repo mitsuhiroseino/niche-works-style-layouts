@@ -63,8 +63,6 @@
   &.nws-layout-adjustX-shrink > * {
     // 子要素の幅調整: 縮める
     width: clamp(0px, 100%, var(--nws-layout-childSizeX));
-    min-width: 0;
-    max-width: 100%;
   }
 
   // 子要素の高さ調整: 伸ばす & 縮める / 伸ばす 共通のデフォルト
@@ -83,8 +81,6 @@
   &.nws-layout-adjustY-shrink > * {
     // 子要素の高さ調整: 縮める
     height: clamp(0px, 100%, var(--nws-layout-childSizeY));
-    min-height: 0;
-    max-height: 100%;
   }
 
   // アスペクト比

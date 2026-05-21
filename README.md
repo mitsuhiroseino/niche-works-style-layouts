@@ -317,14 +317,14 @@ type StyleLayoutResult = {
 
 ## Browser Support
 
-This library is built on modern CSS standards. Supported browsers vary depending on the options used.
+This library is built on modern CSS standards and supports the following major browser versions.
 
-| Browser         | Standard | When using `childRatioX` / `childRatioY` |
-| --------------- | :------: | :--------------------------------------: |
-| Google Chrome   |  2019+   |                  2023+                   |
-| Microsoft Edge  |  2019+   |                  2023+                   |
-| Mozilla Firefox |  2019+   |                  2023+                   |
-| Apple Safari    |  2019+   |                  2023+                   |
+| Browser         |    Supported Versions    |
+| --------------- | :----------------------: |
+| Google Chrome   | 88 (January 2021) and later  |
+| Microsoft Edge  | 88 (January 2021) and later  |
+| Mozilla Firefox | 89 (June 2021) and later     |
+| Apple Safari    | 15 (September 2021) and later |
 
 ## License
 

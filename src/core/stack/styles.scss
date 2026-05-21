@@ -115,7 +115,6 @@
     }
     &.nws-layout-adjustY-shrink > * {
       // 子要素の高さ調整: 縮める
-      min-height: 0;
       max-height: 100%;
     }
   }
@@ -197,7 +196,6 @@
     }
     &.nws-layout-adjustX-shrink > * {
       // 子要素の幅調整: 縮める
-      min-width: 0;
       max-width: 100%;
     }
 

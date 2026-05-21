@@ -33,15 +33,15 @@
   }
   &.nws-layout-alignX-spaceBetween {
     // 横位置: 両端揃え
-    justify-items: space-between;
+    justify-content: space-between;
   }
   &.nws-layout-alignX-spaceAround {
     // 横位置: 両端余白あり均等
-    justify-items: space-around;
+    justify-content: space-around;
   }
   &.nws-layout-alignX-spaceEvenly {
     // 横位置: 完全均等
-    justify-items: space-evenly;
+    justify-content: space-evenly;
   }
 
   &.nws-layout-alignY-top {
@@ -58,15 +58,15 @@
   }
   &.nws-layout-alignY-spaceBetween {
     // 縦位置: 両端揃え
-    align-items: space-between;
+    align-content: space-between;
   }
   &.nws-layout-alignY-spaceAround {
     // 縦位置: 両端余白あり均等
-    align-items: space-around;
+    align-content: space-around;
   }
   &.nws-layout-alignY-spaceEvenly {
     // 縦位置: 完全均等
-    align-items: space-evenly;
+    align-content: space-evenly;
   }
 
   // 子要素の幅・高さ
