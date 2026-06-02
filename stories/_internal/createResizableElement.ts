@@ -68,7 +68,6 @@ export default function createResizableElement(
   // コンテンツが wrapper いっぱいに広がるようにする
   element.style.width = '100%';
   element.style.height = '100%';
-  element.style.boxSizing = 'border-box';
   wrapper.appendChild(element);
 
   // ─── ハンドル生成ヘルパー ─────────────────────────────────────

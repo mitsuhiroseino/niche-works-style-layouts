@@ -11,6 +11,7 @@ export default function createRenderer<P extends DebugOptions>(
     childCount,
     posType,
     sizeType,
+    overflow,
     ...params
   }: P) =>
     createContainer(layout, params, {
@@ -19,5 +20,6 @@ export default function createRenderer<P extends DebugOptions>(
       childCount,
       posType,
       sizeType,
+      overflow,
     });
 }

@@ -1,5 +1,3 @@
-@use '../_internal/flex-gap.scss' as *;
-
 .nws-layout-pack {
   // 変数
   --nws-layout-gapX: 0px;
@@ -37,5 +35,13 @@
   }
 
   // 子要素の間隔
-  @include flex-gap();
+  &.nws-layout-gapX {
+    // 横方向の間隔
+    column-gap: var(--nws-layout-gapX);
+  }
+
+  &.nws-layout-gapY {
+    // 縦方向の間隔
+    row-gap: var(--nws-layout-gapY);
+  }
 }

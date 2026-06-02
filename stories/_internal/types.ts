@@ -23,4 +23,9 @@ export type DebugOptions = {
    * 子要素の位置に決め方
    */
   posType?: 'none' | 'rand' | 'static';
+
+  /**
+   * コンテナーのオーバーフロー
+   */
+  overflow?: 'visible' | 'hidden' | 'clip' | 'scroll' | 'auto' | 'none';
 };

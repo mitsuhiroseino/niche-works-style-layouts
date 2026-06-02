@@ -2,6 +2,7 @@ import type { LooseDictionary } from '@niche-works/types';
 import chroma from 'chroma-js';
 import type { StyleLayout } from '../../src/types';
 import assignStyle from './assignStyle';
+import { CONTAINER_STYLE } from './constants';
 import createResizableElement from './createResizableElement';
 import toAttributesObj from './toAttributesObj';
 import type { DebugOptions } from './types';
@@ -18,13 +19,14 @@ export default function createContainer(
 ) {
   const { className, style } = layout(toAttributesObj(options));
   const {
-    containerWidth = 800,
-    containerHeight = 600,
+    containerWidth = CONTAINER_STYLE.width,
+    containerHeight = CONTAINER_STYLE.height,
     childCount = 12,
     sizeType = 'none',
     posType = 'none',
+    overflow = 'hidden',
   } = toAttributesObj(debugOptions);
-  const colors = chroma.scale(['d9ed92', '184e77']).colors(childCount);
+  const colors = chroma.scale(['#a9c6cf', '#ed8a0f']).colors(childCount);
   const sizeStyles = (() => {
     const list = Array.from({ length: childCount });
     if (sizeType === 'rand') {
@@ -45,8 +47,8 @@ export default function createContainer(
     const list = Array.from({ length: childCount });
     if (posType === 'rand') {
       return list.map(() => ({
-        top: _random(600),
-        left: _random(800),
+        top: _random(CONTAINER_STYLE.height),
+        left: _random(CONTAINER_STYLE.width),
       }));
     } else if (posType === 'none') {
       return list.map(() => ({}));
@@ -67,8 +69,12 @@ export default function createContainer(
       {
         width: containerWidth,
         height: containerHeight,
-        backgroundColor: 'rgba(245, 230, 232, 0.3)',
+        backgroundColor: '#f9fbfc',
         resize: 'horizontal',
+        border: '1px solid rgba(0,0,0,0.1)',
+        borderRadius: '4px',
+        boxSizing: 'content-box',
+        overflow,
         ...style,
       },
       { unit: true },
@@ -89,6 +95,9 @@ export default function createContainer(
           justifyContent: 'center',
           alignItems: 'center',
           overflow: 'hidden',
+          fontSize: '16px',
+          fontFamily: 'sans-serif',
+          borderRadius: '4px',
         },
         { unit: true },
       ),
@@ -101,5 +110,11 @@ export default function createContainer(
     initialWidth: containerWidth,
     initialHeight: containerHeight,
   });
+  assignStyle(
+    wrapper,
+    toAttributesObj({
+      padding: '8px',
+    }),
+  );
   return wrapper;
 }

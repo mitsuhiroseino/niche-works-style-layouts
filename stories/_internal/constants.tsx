@@ -20,6 +20,11 @@ import type {
 } from '../../src/core/_types';
 import type { DebugOptions } from './types';
 
+export const CONTAINER_STYLE = {
+  width: 600,
+  height: 450,
+};
+
 export const DIRECTION_ARG_OPTIONS = Object.values(Direction);
 
 export const ALAGN_X_BASE_ARG_OPTIONS = Object.values(AlignXBase);
@@ -160,6 +165,10 @@ export const DEBUG_ARG_TYPES: ArgTypes<DebugOptions> = {
     control: 'select',
     options: ['none', 'rand', 'static'],
   },
+  overflow: {
+    control: 'select',
+    options: ['visible', 'hidden', 'clip', 'scroll', 'auto', 'none'],
+  },
 };
 
 export const ARG_TYPES = {
@@ -279,11 +288,12 @@ export const TRACKS_OPTIONS: TracksOptions = {
 };
 
 export const DEBUG_PARAMS: DebugOptions = {
-  containerWidth: '600',
-  containerHeight: '450',
+  containerWidth: String(CONTAINER_STYLE.width),
+  containerHeight: String(CONTAINER_STYLE.height),
   childCount: 12,
   sizeType: 'none',
   posType: 'none',
+  overflow: 'hidden',
 };
 
 export const ARGS: Record<string, Record<string, any>> = {

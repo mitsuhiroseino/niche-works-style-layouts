@@ -62,6 +62,7 @@ export default defineConfig({
           './core/*.css': './core/*/styles.css',
         },
       },
+      resolveWorkspaceDeps: true,
     }),
     copy({
       targets: [
