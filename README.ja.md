@@ -304,10 +304,10 @@ const { className, style } = pin({
 
 ## 戻り値
 
-全てのレイアウト関数は `StyleLayoutResult` を返します。
+全てのレイアウト関数は `LayoutStyle` を返します。
 
 ```ts
-type StyleLayoutResult = {
+type LayoutStyle = {
   className?: string;
   style?: {
     [key: `--${string}`]: string | undefined;

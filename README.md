@@ -304,10 +304,10 @@ const { className, style } = pin({
 
 ## Return Value
 
-All layout functions return a `StyleLayoutResult`:
+All layout functions return a `LayoutStyle`:
 
 ```ts
-type StyleLayoutResult = {
+type LayoutStyle = {
   className?: string;
   style?: {
     [key: `--${string}`]: string | undefined;
