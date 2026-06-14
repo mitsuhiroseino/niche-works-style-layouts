@@ -4,7 +4,7 @@ import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
 import mergeClassName from '../_internal/mergeClassName';
-import type { StyleLayout, StyleLayoutResult } from '../types';
+import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { TileLayoutOptions } from './types';
 
 /**
@@ -13,7 +13,7 @@ import type { TileLayoutOptions } from './types';
  * - 子要素の高さ・幅を基準にして格子状に並べる
  * - 親要素のサイズが子要素に依存していないことを前提とする
  */
-const tile: StyleLayout<TileLayoutOptions> = (options = {}) => {
+const tile: CreateLayoutStyle<TileLayoutOptions> = (options = {}) => {
   const {
     direction,
     alignX,
@@ -37,7 +37,7 @@ const tile: StyleLayout<TileLayoutOptions> = (options = {}) => {
     { overwriteNull: true },
   );
 
-  const result: StyleLayoutResult = {
+  const result: LayoutStyle = {
     className: mergeClassName(
       clsLayoutTile,
       clsLayout.direction[direction],

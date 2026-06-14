@@ -4,7 +4,7 @@ import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
 import mergeClassName from '../_internal/mergeClassName';
-import type { StyleLayout, StyleLayoutResult } from '../types';
+import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { BalanceLayoutOptions } from './types';
 
 /**
@@ -14,7 +14,7 @@ import type { BalanceLayoutOptions } from './types';
  * - `adjust`が効いていない場合は、子要素のサイズを維持したまま、余白を均等に配分する
  * - `adjust`が効いている場合は、子要素のサイズを調整してコンテナを満たす
  */
-const balance: StyleLayout<BalanceLayoutOptions> = (options = {}) => {
+const balance: CreateLayoutStyle<BalanceLayoutOptions> = (options = {}) => {
   const {
     direction,
     alignX,
@@ -39,7 +39,7 @@ const balance: StyleLayout<BalanceLayoutOptions> = (options = {}) => {
       overwriteNull: true,
     },
   );
-  const result: StyleLayoutResult = {
+  const result: LayoutStyle = {
     className: mergeClassName(
       clsLayoutBalance,
       clsLayout.direction[direction],

@@ -18,7 +18,7 @@ import type {
   TracksOptions,
 } from '../_types';
 import { Adjust } from '../constants';
-import type { StyleLayout, StyleLayoutResult } from '../types';
+import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { MatrixLayoutOptions } from './types';
 
 type MatrixLayoutInternalOptions = DirectionOptions &
@@ -36,7 +36,7 @@ type MatrixLayoutInternalOptions = DirectionOptions &
  * - 子要素の縦の数、横の数を基準にして格子状に配置する
  * - 親要素のサイズが子要素に依存していないことを前提とする
  */
-const matrix: StyleLayout<MatrixLayoutOptions> = (options) => {
+const matrix: CreateLayoutStyle<MatrixLayoutOptions> = (options) => {
   const {
     direction,
     alignX,
@@ -63,7 +63,7 @@ const matrix: StyleLayout<MatrixLayoutOptions> = (options) => {
     },
     { overwriteNull: true },
   );
-  let result: StyleLayoutResult = {
+  let result: LayoutStyle = {
     className: mergeClassName(
       clsLayoutMatrix,
       clsLayout.direction[direction],
@@ -132,7 +132,7 @@ function _getTemplate(
   axis: 'x' | 'y',
   adjust: Adjust,
   tracks: (string | number)[],
-): StyleLayoutResult {
+): LayoutStyle {
   // 子要素数 & サイズが指定されている場合
   // px列の合計を計算
   const pxTotal = tracks.reduce<number>((sum, value) => {

@@ -4,7 +4,7 @@ import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import applyGap from '../_internal/applyGap';
 import mergeClassName from '../_internal/mergeClassName';
-import type { StyleLayout, StyleLayoutResult } from '../types';
+import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { CenterLayoutOptions } from './types';
 
 /**
@@ -13,7 +13,7 @@ import type { CenterLayoutOptions } from './types';
  * - 子要素を中央に配置する
  * - 親要素が子要素のサイズよりも小さくなっても左上が親要素内に収まる
  */
-const center: StyleLayout<CenterLayoutOptions> = (options = {}) => {
+const center: CreateLayoutStyle<CenterLayoutOptions> = (options = {}) => {
   const {
     direction,
     adjustX,
@@ -33,7 +33,7 @@ const center: StyleLayout<CenterLayoutOptions> = (options = {}) => {
     { overwriteNull: true },
   );
 
-  const result: StyleLayoutResult = {
+  const result: LayoutStyle = {
     className: mergeClassName(
       clsLayoutCenter,
       clsLayout.direction[direction],

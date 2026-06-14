@@ -4,7 +4,7 @@ import {
   varLayoutGapX,
   varLayoutGapY,
 } from '../_constants';
-import type { StyleLayoutResult } from '../types';
+import type { LayoutStyle } from '../types';
 import hasValue from './hasValue';
 import mergeClassName from './mergeClassName';
 import unit from './unit';
@@ -17,7 +17,7 @@ import unit from './unit';
  * @param gapY
  */
 export default function applyGap(
-  result: StyleLayoutResult,
+  result: LayoutStyle,
   gap: number | null | undefined,
   gapX: number | null | undefined,
   gapY: number | null | undefined,

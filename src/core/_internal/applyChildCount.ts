@@ -4,7 +4,7 @@ import {
   varLayoutChildCountX,
   varLayoutChildCountY,
 } from '../_constants';
-import type { StyleLayoutResult } from '../types';
+import type { LayoutStyle } from '../types';
 import hasValue from './hasValue';
 import mergeClassName from './mergeClassName';
 
@@ -15,7 +15,7 @@ import mergeClassName from './mergeClassName';
  * @param childCountY
  */
 export default function applyChildCount(
-  result: StyleLayoutResult,
+  result: LayoutStyle,
   childCountX: number | null | undefined,
   childCountY: number | null | undefined,
 ): void {

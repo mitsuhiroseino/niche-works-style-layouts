@@ -1,11 +1,11 @@
-import type { StyleLayoutResult } from '../types';
+import type { LayoutStyle } from '../types';
 import mergeClassName from './mergeClassName';
 
 export default function mergeLayoutResults(
-  results: StyleLayoutResult[],
-): StyleLayoutResult {
+  results: LayoutStyle[],
+): LayoutStyle {
   // 全てのクラス&スタイルを統合
-  return results.reduce<StyleLayoutResult>((layoutResult, result) => {
+  return results.reduce<LayoutStyle>((layoutResult, result) => {
     if (result.className) {
       layoutResult.className = mergeClassName(
         layoutResult.className,
@@ -16,5 +16,5 @@ export default function mergeLayoutResults(
       layoutResult.style = { ...layoutResult.style, ...result.style };
     }
     return layoutResult;
-  }, {} satisfies StyleLayoutResult);
+  }, {} satisfies LayoutStyle);
 }

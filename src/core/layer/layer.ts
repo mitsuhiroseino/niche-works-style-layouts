@@ -3,7 +3,7 @@ import { clsLayout, clsLayoutLayer } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
 import mergeClassName from '../_internal/mergeClassName';
-import type { StyleLayout, StyleLayoutResult } from '../types';
+import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { LayerLayoutOptions } from './types';
 
 /**
@@ -13,7 +13,7 @@ import type { LayerLayoutOptions } from './types';
  * - alignX / alignY で重なる位置を制御する
  * - 子要素の重なり順はDOM順に従う
  */
-const layer: StyleLayout<LayerLayoutOptions> = (options = {}) => {
+const layer: CreateLayoutStyle<LayerLayoutOptions> = (options = {}) => {
   const {
     alignX,
     alignY,
@@ -32,7 +32,7 @@ const layer: StyleLayout<LayerLayoutOptions> = (options = {}) => {
     { overwriteNull: true },
   );
 
-  const result: StyleLayoutResult = {
+  const result: LayoutStyle = {
     className: mergeClassName(
       clsLayoutLayer,
       clsLayout.align.x[alignX],

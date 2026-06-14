@@ -1,5 +1,5 @@
 import { clsLayoutChildRatio, varLayoutChildRatio } from '../_constants';
-import type { StyleLayoutResult } from '../types';
+import type { LayoutStyle } from '../types';
 import hasValue from './hasValue';
 import mergeClassName from './mergeClassName';
 
@@ -10,7 +10,7 @@ import mergeClassName from './mergeClassName';
  * @param childRatioY
  */
 export default function applyChildRatio(
-  result: StyleLayoutResult,
+  result: LayoutStyle,
   childRatioX: number | null | undefined,
   childRatioY: number | null | undefined,
 ): void {

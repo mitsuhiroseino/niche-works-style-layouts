@@ -7,7 +7,7 @@ import mergeClassName from '../_internal/mergeClassName';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
 import unit from '../_internal/unit';
 import type { Adjust, AlignX, AlignY } from '../constants';
-import type { StyleLayout, StyleLayoutResult } from '../types';
+import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { FlowLayoutOptions } from './types';
 
 /**
@@ -16,7 +16,7 @@ import type { FlowLayoutOptions } from './types';
  * - 子要素を並べて配置し、親要素のサイズに達したら折り返す
  * - stackとの違いは flex-wrap: wrap が常に有効な点
  */
-const flow: StyleLayout<FlowLayoutOptions> = (options = {}) => {
+const flow: CreateLayoutStyle<FlowLayoutOptions> = (options = {}) => {
   const {
     direction,
     alignX,
@@ -40,7 +40,7 @@ const flow: StyleLayout<FlowLayoutOptions> = (options = {}) => {
     { overwriteNull: true },
   );
 
-  const result: StyleLayoutResult = {
+  const result: LayoutStyle = {
     className: mergeClassName(
       clsLayoutFlow,
       clsLayout.direction[direction],
@@ -56,7 +56,7 @@ const flow: StyleLayout<FlowLayoutOptions> = (options = {}) => {
   // 子要素の縦横比
   applyChildRatio(result, childRatioX, childRatioY);
 
-  const resultList: StyleLayoutResult[] = [result];
+  const resultList: LayoutStyle[] = [result];
 
   if (direction === 'x') {
     // 横並びの場合
@@ -86,8 +86,8 @@ function _getFlowMainAxisStyle(
   align: AlignX | AlignY,
   adjust: Adjust,
   childSize: number,
-): StyleLayoutResult {
-  const result: StyleLayoutResult = {
+): LayoutStyle {
+  const result: LayoutStyle = {
     className: mergeClassName(
       clsLayout.align[axis][align],
       clsLayout.adjust[axis][adjust],
@@ -114,7 +114,7 @@ function _getFlowCrossAxisStyle(
   axis: 'x' | 'y',
   align: AlignX | AlignY,
   childSize: number,
-): StyleLayoutResult {
+): LayoutStyle {
   // none
   if (hasValue(childSize)) {
     return {

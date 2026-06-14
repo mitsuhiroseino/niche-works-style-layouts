@@ -4,7 +4,7 @@ import {
   varLayoutChildSizeX,
   varLayoutChildSizeY,
 } from '../_constants';
-import type { StyleLayoutResult } from '../types';
+import type { LayoutStyle } from '../types';
 import hasValue from './hasValue';
 import mergeClassName from './mergeClassName';
 import unit from './unit';
@@ -16,7 +16,7 @@ import unit from './unit';
  * @param childSizeY
  */
 export default function applyChildSize(
-  result: StyleLayoutResult,
+  result: LayoutStyle,
   childSizeX: number | null | undefined,
   childSizeY: number | null | undefined,
 ): void {

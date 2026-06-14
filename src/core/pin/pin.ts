@@ -1,7 +1,7 @@
 import { clsLayoutPin } from '../_constants';
 import applyChildRatio from '../_internal/applyChildRatio';
 import applyChildSize from '../_internal/applyChildSize';
-import type { StyleLayout, StyleLayoutResult } from '../types';
+import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { PinLayoutOptions } from './types';
 
 /**
@@ -9,9 +9,9 @@ import type { PinLayoutOptions } from './types';
  *
  * - 子要素のtop,left,bottom,rightに従い配置する
  */
-const pin: StyleLayout<PinLayoutOptions> = (options = {}) => {
+const pin: CreateLayoutStyle<PinLayoutOptions> = (options = {}) => {
   const { childSizeX, childSizeY, childRatioX, childRatioY } = options;
-  const result: StyleLayoutResult = {
+  const result: LayoutStyle = {
     className: clsLayoutPin,
     style: {},
   };

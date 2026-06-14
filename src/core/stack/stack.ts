@@ -7,7 +7,7 @@ import mergeClassName from '../_internal/mergeClassName';
 import mergeLayoutResults from '../_internal/mergeLayoutResults';
 import unit from '../_internal/unit';
 import type { Adjust, AlignX, AlignY, Direction } from '../constants';
-import type { StyleLayout, StyleLayoutResult } from '../types';
+import type { CreateLayoutStyle, LayoutStyle } from '../types';
 import type { StackLayoutOptions } from './types';
 
 /**
@@ -15,7 +15,7 @@ import type { StackLayoutOptions } from './types';
  *
  * - 子要素を一列に並べて配置する
  */
-const stack: StyleLayout<StackLayoutOptions> = (options = {}) => {
+const stack: CreateLayoutStyle<StackLayoutOptions> = (options = {}) => {
   const {
     direction,
     alignX,
@@ -39,7 +39,7 @@ const stack: StyleLayout<StackLayoutOptions> = (options = {}) => {
     { overwriteNull: true },
   );
 
-  const result: StyleLayoutResult = {
+  const result: LayoutStyle = {
     // 基本的なクラス
     className: mergeClassName(
       clsLayoutStack,
@@ -56,7 +56,7 @@ const stack: StyleLayout<StackLayoutOptions> = (options = {}) => {
   // 子要素の縦横比
   applyChildRatio(result, childRatioX, childRatioY);
 
-  const resultList: StyleLayoutResult[] = [result];
+  const resultList: LayoutStyle[] = [result];
 
   if (direction === 'x') {
     // 横並びの場合
@@ -90,8 +90,8 @@ function _getStackMainAxisStyle(
   align: AlignY | AlignX,
   adjust: Adjust,
   childSize: number,
-): StyleLayoutResult {
-  const result: StyleLayoutResult = {
+): LayoutStyle {
+  const result: LayoutStyle = {
     className: mergeClassName(
       clsLayout.align[axis][align],
       clsLayout.adjust[axis][adjust],
@@ -122,7 +122,7 @@ function _getStackClossAxisStyle(
   align: AlignY | AlignX,
   adjust: Adjust,
   childSize: number,
-): StyleLayoutResult {
+): LayoutStyle {
   if (adjust === 'fit') {
     // fit
     return {
@@ -136,7 +136,7 @@ function _getStackClossAxisStyle(
     };
   } else if (adjust === 'grow') {
     // grow
-    const result: StyleLayoutResult = {
+    const result: LayoutStyle = {
       className: mergeClassName(
         clsLayout.align[axis][align],
         clsLayout.adjust[axis][adjust],
@@ -154,7 +154,7 @@ function _getStackClossAxisStyle(
     return result;
   } else if (adjust === 'shrink') {
     // shrink
-    const result: StyleLayoutResult = {
+    const result: LayoutStyle = {
       className: mergeClassName(
         clsLayout.align[axis][align],
         clsLayout.adjust[axis][adjust],

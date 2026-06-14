@@ -1,14 +1,14 @@
-import type { LooseDictionary } from '@niche-works/types';
 import type { StyleResult } from '@niche-works/style-utils';
+import type { LooseDictionary } from '@niche-works/types';
 
 /**
  * レイアウトを作る関数
  */
-export type StyleLayout<O = LooseDictionary> = (
+export type CreateLayoutStyle<O = LooseDictionary> = (
   options?: O,
-) => StyleLayoutResult;
+) => LayoutStyle;
 
 /**
  * レイアウト
  */
-export type StyleLayoutResult = StyleResult;
+export type LayoutStyle = StyleResult;
